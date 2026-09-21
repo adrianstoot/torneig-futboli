@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.sites-runtime/
+*.local
+test-results/
+.playwright-cli/
+output/
+*.tsbuildinfo

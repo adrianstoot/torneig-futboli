@@ -1,0 +1,38 @@
+Generated with built-in image_gen. Original assets preserved under Codex generated_images.
+
+DELIVERY NOTES
+Final background is 1672x941 (tool retained reference-sized resolution despite explicit 3840x2160 request). Title and official crest are incorporated; central blue area is intentionally empty. A targeted edit pushed bottom scenery down to improve usable center. Background filename points to that final corrected version.
+Mascot sheet is 2172x724, four equal 543x724 cells, true alpha PNG (verified sampled alpha ranges from 0 to 255). Left to right: thumbs up, waving, pointing, cheering. Costume, flame hair, football head and official crest identity preserved.
+Exactly two final PNG assets delivered in this directory.
+
+BACKGROUND TARGETED CORRECTION PROMPT
+Use case: precise-object-edit.
+This provided image is the edit target: the finished tournament broadcast background.
+Output ONE high-resolution production PNG at EXACTLY 3840 pixels wide and 2160 pixels high, 16:9. The previous 1672x941 resolution is insufficient. Re-render/upscale sharply to 3840x2160.
+Preserve the artwork, title text exactly 'TORNEIG FUTBOLÍ 2027', subtitle exactly 'Falla L’Alquerieta i Museu Faller', faithful official crest with no white rectangular background, top title and festive edge decorations. Preserve the style, colors and side yellow banners.
+SINGLE COMPOSITION ADJUSTMENT: push the bottom crowd silhouettes, foosball rod/props/ball, bunting and bottom edge decorations downward to live in the bottom 8% (y92–100%) and extreme side 5% strips. Let the corner foosball toys be mostly cropped at the frame edge. The whole rectangle from x5% to x95%, y23% to y91% must remain uninterrupted dark electric blue atmospheric negative space. Current bottom silhouettes reach upward too far; move those down and restore plain blue in that region. No UI cards, no data, no panels.
+Do not alter the header spelling, crest or title design. Deliver the single full-resolution 3840x2160 bitmap.
+
+BACKGROUND PROMPT
+Use case: stylized-concept.
+Asset type: production background bitmap for a live foosball tournament sports TV app.
+Create ONE 3840x2160 image, landscape 16:9.
+Input 1 is a STYLE AND COMPOSITION REFERENCE of the intended sports TV art. Input 2 is the OFFICIAL CREST, a compositing/identity input; integrate that crest faithfully, removing its white rectangular backing.
+Closely match the first image's high-energy electric blue Valencian festival stadium illustration: saturated deep/electric blues, distant crowd silhouettes, colorful bunting, glowing festoon light bulbs, red/yellow graphic energy, foosball toy player props, a football at an outer lower corner, narrow yellow banners at far left and right. Glossy clean polished commercial illustration, dynamic broad brush graphics for title, crisp attractive rendering.
+CRITICAL LAYOUT: The entire rectangular center from x=5% to x=95%, y=22% to y=91% must be CLEAR EMPTY uninterrupted dark electric blue negative space for live code UI. The central empty region has a subtle blue atmospheric gradient only, no distinct objects. Constrain EVERY decoration to the outer border and title zone above y=20%. No panel/card outlines anywhere. Side banner strips may occupy x=0–4% and x=96–100%. Foreground objects only in bottom strip y=92–100% or outside x=5–95%. Do not let lights or strings cross central area. Stadium crowd silhouettes behind the TOP title zone and very bottom border only.
+TOP HEADER: At top center, fully inside y=1%–17%, draw EXACTLY 'TORNEIG FUTBOLÍ 2027' in a single powerful wide line. Huge forward-italic white sports block letters for TORNEIG and 2027, vivid yellow forward-italic brush/block FUTBOLÍ, on black brush swash. Spell exactly T O R N E I G, F U T B O L Í (accent on Í), 2 0 2 7. Header from roughly x=25% to x=86%, title must be readable and not cropped. Beneath it inside y=15%–20% draw EXACT subtitle 'Falla L’Alquerieta i Museu Faller' in black confident handwritten letters on white brush swash. No other text.
+Integrate the supplied official crest as a clean cutout without any white rectangle at upper left beside title, centered at about x=15%, y=9%, whole crest visible, height about 17% of canvas, preserve crown, heraldic shield, flames, tower, fruit, Valencian red/yellow stripes, blue field/waves.
+Avoid: UI, tables, scoreboards, live cards, fake data, names, numbers other than 2027, fake buttons, central mascot, central background object, white rectangle around crest, watermark. This is finished background art, with intentionally blank blue center.
+
+MASCOT PROMPT
+Use case: identity-preserve.
+Asset type: production transparent PNG sprite sheet for CSS animated pose swaps.
+Primary request: Create ONE genuinely transparent PNG image with exactly FOUR full-body poses of the supplied official friendly football mascot. ONE ROW, FOUR EQUAL WIDTH COLUMNS, left to right. Canvas landscape 3:1, preferably 3072x1024. Four invisible equal cells. A TRUE ALPHA transparent background, no white background, no checkerboard baked in, no colored rectangle, no floor, no cast shadow, no frame, no text.
+Input 1 is the official mascot and must be preserved as identity: round black-and-white football head; large brown eyes; raised dark eyebrows; happy friendly smiling face; glossy red and yellow flame hair; red/yellow vertically striped soccer shirt with blue neck/sleeve trim and faithful official crest; blue shorts; striped red/yellow socks; blue football shoes. Input 2 is the official crest supporting detail, preserve on shirt accurately. Consistent attractive polished 3D cartoon rendering as supplied image.
+Every cell contains the SAME character and same costume; same full-body scale, centered horizontally with ample transparent gutter (at least 9% of cell width on each side), feet baseline consistent, all hair, hands, elbows, and shoes fit fully inside its cell. Keep the head/body proportions of the reference, do not squash to fit.
+POSES LEFT TO RIGHT:
+1: confident friendly thumbs up, other hand on hip, standing with both shoes visible.
+2: waving welcome with open raised hand, relaxed welcoming stance.
+3: pointing sideways to its right as if announcing teams, clear extended pointing hand, other hand open.
+4: celebrating a win with both arms raised cheering, small joyful jump, huge friendly smile.
+No additional separate football prop. No labels, cell dividers, text, duplicate or missing characters. All FOUR figures distinct and isolated on genuinely transparent background. Preserve alpha transparency in output.
