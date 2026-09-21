@@ -33,7 +33,7 @@
   position: absolute;
   z-index: -3;
   inset: 0;
-  background: #0459c9 url("/assets/arena-background.png") center/100% 100%
+  background: #0459c9 url("./arena-background.png") center/100% 100%
     no-repeat;
 }
 .arena-energy {
@@ -561,7 +561,7 @@
 .mascot-pose {
   position: absolute;
   inset: 0;
-  background-image: url("/assets/mascot-poses.png");
+  background-image: url("./mascot-poses.png");
   background-size: 400% 100%;
   background-position: calc(var(--pose) * 100% / 3) center;
   background-repeat: no-repeat;

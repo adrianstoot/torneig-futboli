@@ -143,7 +143,7 @@ export function BroadcastApp() {
   useEffect(() => {
     const image = new Image();
     image.onload = () => setArtReady(true);
-    image.src = "/assets/arena-background.png";
+    image.src = `${import.meta.env.BASE_URL}assets/arena-background.png`;
   }, []);
   useEffect(() => {
     const timer = setInterval(() => setClock(Date.now()), 1000);
