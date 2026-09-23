@@ -224,12 +224,7 @@ export function BroadcastApp() {
   const guide = buildGuide(s, tied, roundDone);
   const guideAction = () => {
     if (s.phase === "SETUP") void run(() => commit(draw));
-    else if (s.phase === "DRAW")
-      void run(async () => {
-        await commit(startGroups);
-        setView("live");
-        setTournamentTransition(true);
-      });
+    else if (s.phase === "DRAW") void run(() => commit(startGroups));
     else if (s.phase === "GROUP_STAGE_COMPLETE" && tied) setPanel("ties");
     else if (s.phase === "CHAMPION") {
       setView("champion");
@@ -243,8 +238,8 @@ export function BroadcastApp() {
     } else advancePhase();
   };
   const drawFromRegistration = () =>
-    run(() =>
-      commit((current) => {
+    run(async () => {
+      await commit((current) => {
         if (current.teams.length > 0) return draw(current);
         const teams = Array.from({ length: 30 }, (_, i) => {
           const name = `Parella ${String(i + 1).padStart(2, "0")}`;
@@ -258,12 +253,7 @@ export function BroadcastApp() {
           };
         });
         return draw({ ...current, teams });
-      }),
-    );
-  const startTournamentWithTransition = () =>
-    run(async () => {
-      await commit(startGroups);
-      setView("live");
+      });
       setTournamentTransition(true);
     });
   return (
@@ -345,7 +335,11 @@ export function BroadcastApp() {
             <Registration s={s} run={run} onDraw={drawFromRegistration} />
           ) : (
             <div className="arena-draw">
-              <Draw s={s} run={run} onStart={startTournamentWithTransition} />
+              <Draw
+                s={s}
+                run={run}
+                onStart={() => run(() => commit(startGroups))}
+              />
               <button className="arena-link" onClick={() => setPanel("teams")}>
                 Editar parelles abans de començar
               </button>
