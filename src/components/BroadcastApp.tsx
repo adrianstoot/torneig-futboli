@@ -12,7 +12,6 @@ import {
   CalendarDays,
   Check,
   ChevronRight,
-  ClipboardList,
   Download,
   FlaskConical,
   History,
@@ -63,7 +62,7 @@ import {
   type TableId,
   type Team,
 } from "../engine/types";
-import { createPractice, simulateRound } from "../engine/practice";
+import { simulateRound } from "../engine/practice";
 import { useEventAudio } from "../audio";
 import { Table3D } from "./Table3D";
 import { MascotActor } from "./MascotActor";
@@ -92,7 +91,6 @@ const views = [
   { id: "upcoming", label: "Pròxims enfrontaments", Icon: CalendarDays },
   { id: "bracket", label: "Camí a la copa", Icon: Trophy },
 ] as const;
-const PRACTICE_BACKUP = "futboli-real-before-practice";
 
 export function BroadcastApp() {
   const s = useTournament();
@@ -199,27 +197,6 @@ export function BroadcastApp() {
       ),
     );
   };
-  const practice = () =>
-    run(async () => {
-      if (!getState().demo)
-        localStorage.setItem(PRACTICE_BACKUP, JSON.stringify(getState()));
-      await commit(createPractice);
-      setView("live");
-      setPanel(null);
-    });
-  const leavePractice = () =>
-    confirm(
-      "Tornar al torneig real",
-      "Es recuperarà el torneig real que tenies abans d’entrar al mode prova.",
-      () =>
-        run(async () => {
-          const saved = localStorage.getItem(PRACTICE_BACKUP);
-          await commit(() =>
-            saved ? validateState(JSON.parse(saved)) : initialState(),
-          );
-          setView("live");
-        }),
-    );
   const advancePhase = () =>
     run(async () => {
       await commit(advance);
@@ -313,27 +290,6 @@ export function BroadcastApp() {
           </span>
         </div>
         <div className="arena-tools">
-          {s.demo ? (
-            <button className="practice-tag" onClick={leavePractice}>
-              <FlaskConical />
-              PROVA · Tornar al real
-            </button>
-          ) : (
-            <button
-              onClick={() =>
-                s.teams.length
-                  ? confirm(
-                      "Entrar al mode prova",
-                      "Crearem 30 parelles fictícies. El teu torneig real quedarà guardat per recuperar-lo en eixir.",
-                      practice,
-                    )
-                  : practice()
-              }
-            >
-              <FlaskConical />
-              <span>Mode prova</span>
-            </button>
-          )}
           <button
             title="So"
             aria-label={s.settings.sound ? "Desactivar so" : "Activar so"}
@@ -789,14 +745,6 @@ function Registration({
           <h3>
             <Users /> PARELLES INSCRITES <b>{s.teams.length}/30</b>
           </h3>
-          <button
-            className="arena-link"
-            disabled={locked}
-            onClick={() => setBulkOpen(!bulkOpen)}
-          >
-            <ClipboardList />
-            Afegir una llista
-          </button>
         </div>
         {bulkOpen && (
           <div className="registration-bulk">
