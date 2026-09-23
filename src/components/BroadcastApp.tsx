@@ -9,7 +9,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import {
   Activity,
   BarChart3,
-  CalendarDays,
   Check,
   ChevronRight,
   Download,
@@ -67,7 +66,8 @@ import { simulateRound } from "../engine/practice";
 import { useEventAudio } from "../audio";
 import { Table3D } from "./Table3D";
 import { MascotActor } from "./MascotActor";
-import { Bracket, Qualified, Standings, TrophyArt, teamName } from "./TV";
+import { Standings, TrophyArt, teamName } from "./TV";
+import { CupJourney, MatchCard } from "./TournamentViews";
 import {
   Dialog,
   Draw,
@@ -77,19 +77,11 @@ import {
   TieResolver,
 } from "./Admin";
 
-type View =
-  | "live"
-  | "standings"
-  | "upcoming"
-  | "bracket"
-  | "qualified"
-  | "final"
-  | "champion";
+type View = "live" | "standings" | "bracket" | "final" | "champion";
 type Panel = "teams" | "settings" | "results" | "ties" | null;
 const views = [
   { id: "live", label: "Seguiment en directe", Icon: Radio },
   { id: "standings", label: "Classificació", Icon: BarChart3 },
-  { id: "upcoming", label: "Pròxims enfrontaments", Icon: CalendarDays },
   { id: "bracket", label: "Camí a la copa", Icon: Trophy },
 ] as const;
 
@@ -155,25 +147,18 @@ export function BroadcastApp() {
     return () => clearInterval(timer);
   }, []);
   useEffect(() => {
-    if (!last || Date.now() - last.at > 20000) return;
+    if (!last || Date.now() - last.at > 5000) return;
     setNotice(last);
     if (last.kind === "champion") setView("champion");
     const timer = setTimeout(
       () => setNotice(null),
-      last.kind === "phase"
-        ? Math.max(7000, last.teams.length * 1500)
-        : last.kind === "champion"
-          ? 14000
-          : 5000,
+      last.kind === "champion" ? 5000 : 3500,
     );
     return () => clearTimeout(timer);
   }, [last?.id]);
   useEffect(() => {
     if (!s.settings.auto || !started || s.phase === "CHAMPION" || panel) return;
-    const pages: View[] =
-      s.phase === "GROUP_STAGE"
-        ? ["live", "standings", "upcoming"]
-        : ["live", "bracket", "qualified"];
+    const pages: View[] = ["live", "standings", "bracket"];
     const timer = setInterval(() => {
       if (document.activeElement?.matches("input,textarea")) return;
       setView((v) => pages[(pages.indexOf(v) + 1) % pages.length]);
@@ -181,18 +166,11 @@ export function BroadcastApp() {
     return () => clearInterval(timer);
   }, [s.settings.auto, s.settings.seconds, s.phase, panel, started]);
   useEffect(() => {
-    const v = s.settings.view as View;
-    if (
-      [
-        "live",
-        "standings",
-        "upcoming",
-        "bracket",
-        "qualified",
-        "final",
-        "champion",
-      ].includes(v)
-    )
+    const v =
+      s.settings.view === "upcoming" || s.settings.view === "qualified"
+        ? "standings"
+        : (s.settings.view as View);
+    if (["live", "standings", "bracket", "final", "champion"].includes(v))
       setView(v);
   }, [s.settings.view]);
   useEffect(() => {
@@ -216,21 +194,18 @@ export function BroadcastApp() {
   };
   const advancePhase = () =>
     run(async () => {
-      await commit(advance);
+      await commit((current) => {
+        const next = advance(current);
+        // Keep the qualified seeds, then assign cup fixtures immediately.
+        return next.phase === "QUALIFIED" ? advance(next) : next;
+      });
       setNotice(getState().events.at(-1) || null);
       const phase = getState().phase;
-      setView(
-        phase === "QUALIFIED"
-          ? "qualified"
-          : phase === "FINAL"
-            ? "final"
-            : "live",
-      );
+      setView(phase === "CHAMPION" ? "champion" : "standings");
       setPanel(null);
     });
   useEffect(() => {
     if (s.phase === "CHAMPION") setView("champion");
-    else if (s.phase === "FINAL") setView("final");
   }, [s.phase]);
   useEffect(() => {
     if (!interaction) return;
@@ -238,6 +213,23 @@ export function BroadcastApp() {
     return () => clearTimeout(timer);
   }, [interaction]);
   const guide = buildGuide(s, tied, roundDone);
+  const finalMatch = s.matches.find((m) => m.phase === "FINAL");
+  const tickerEntries = !started
+    ? [
+        s.phase === "DRAW"
+          ? "SORTEIG FET! REVISEU LES PARELLES DE CADA FUTBOLÍ I PREPAREU-VOS PER A JUGAR"
+          : "APUNTA LES PARELLES DEL TORNEIG",
+      ]
+    : s.phase === "FINAL" && finalMatch
+      ? [
+          `GRAN FINAL · FUTBOLÍ ${finalMatch.table} · ${teamName(s, finalMatch.a)} VS ${teamName(s, finalMatch.b)} · AL MILLOR DE 3 PARTIDES`,
+        ]
+      : tables.map((table) => {
+          const upcoming = queue(s, table)[1];
+          return upcoming
+            ? `FUTBOLÍ ${table} · QUE ES PREPAREN: ${teamName(s, upcoming.a)} VS ${teamName(s, upcoming.b)}`
+            : `FUTBOLÍ ${table} · ${queue(s, table).length ? "ÚLTIM PARTIT D’ESTA FASE EN JOC" : "ESPERANT LA SEGÜENT FASE"}`;
+        });
   const guideAction = () => {
     if (s.phase === "SETUP") void run(() => commit(draw));
     else if (s.phase === "DRAW") void run(() => commit(startGroups));
@@ -304,7 +296,11 @@ export function BroadcastApp() {
             {phaseNames[s.phase]}
           </span>
           <span className="wide-rule">
-            2 partides · 1 punt per partida guanyada
+            {["GROUP_STAGE", "GROUP_STAGE_COMPLETE"].includes(s.phase)
+              ? "2 partides · 1 punt per partida guanyada"
+              : ["SETUP", "DRAW"].includes(s.phase)
+                ? "2 partides · 1 punt per partida guanyada"
+                : "Eliminació directa · al millor de 3 partides"}
           </span>
         </div>
         <div className="arena-tools">
@@ -385,32 +381,36 @@ export function BroadcastApp() {
           )}
         </main>
       ) : (
-        <main className="arena-tournament">
-          <div
-            className={`arena-tables ${["bracket", "qualified", "final", "champion"].includes(view) ? "short-tables" : ""}`}
-          >
-            {tables.map((table) => (
-              <LiveBoard
-                key={table}
-                s={s}
-                table={table}
-                view={view}
-                controls={!focusMode}
-                onInteraction={setInteraction}
-                onSave={async (match, games) => {
-                  await commit((x) => {
-                    if (queue(x, table)[0]?.id !== match.id)
-                      throw Error(
-                        "Este partit ja ha canviat. Revisa el nou enfrontament.",
-                      );
-                    return saveResult(x, match.id, games);
-                  });
-                  setInteraction("");
-                }}
-              />
-            ))}
-          </div>
-          {["bracket", "qualified", "final", "champion"].includes(view) && (
+        <main
+          className={`arena-tournament ${view === "bracket" ? "cup-screen" : ""}`}
+        >
+          {view !== "bracket" && (
+            <div
+              className={`arena-tables ${["final", "champion"].includes(view) ? "short-tables" : ""}`}
+            >
+              {tables.map((table) => (
+                <LiveBoard
+                  key={table}
+                  s={s}
+                  table={table}
+                  view={view}
+                  controls={!focusMode}
+                  onInteraction={setInteraction}
+                  onSave={async (match, games) => {
+                    await commit((x) => {
+                      if (queue(x, table)[0]?.id !== match.id)
+                        throw Error(
+                          "Este partit ja ha canviat. Revisa el nou enfrontament.",
+                        );
+                      return saveResult(x, match.id, games);
+                    });
+                    setInteraction("");
+                  }}
+                />
+              ))}
+            </div>
+          )}
+          {["bracket", "final", "champion"].includes(view) && (
             <div className="arena-stage-detail">
               <AnimatePresence mode="wait">
                 <motion.div
@@ -422,9 +422,7 @@ export function BroadcastApp() {
                   transition={{ duration: 0.38 }}
                 >
                   {view === "bracket" ? (
-                    <Bracket s={s} />
-                  ) : view === "qualified" ? (
-                    <Qualified s={s} />
+                    <CupJourney s={s} />
                   ) : view === "final" ? (
                     <FinalScene s={s} />
                   ) : (
@@ -450,21 +448,16 @@ export function BroadcastApp() {
         </div>
         <div className="ticker-window" aria-label="Ròtul del torneig">
           <div className="ticker-track">
-            <span>
-              COMENÇA EL TORNEIG! PARELLES, ACOSTEU-VOS ALS FUTBOLINS… QUE
-              COMENCE EL JOC!
-            </span>
-            <b>✦</b>
-            <span>
-              COMENÇA EL TORNEIG! PARELLES, ACOSTEU-VOS ALS FUTBOLINS… QUE
-              COMENCE EL JOC!
-            </span>
-            <b>✦</b>
-            <span>
-              COMENÇA EL TORNEIG! PARELLES, ACOSTEU-VOS ALS FUTBOLINS… QUE
-              COMENCE EL JOC!
-            </span>
-            <b>✦</b>
+            {[0, 1].map((copy) => (
+              <div className="ticker-cycle" key={copy} aria-hidden={copy === 1}>
+                {tickerEntries.map((entry, index) => (
+                  <span key={`${copy}-${index}`}>
+                    {entry}
+                    <b>✦</b>
+                  </span>
+                ))}
+              </div>
+            ))}
           </div>
         </div>
         <div className="guide-actions">
@@ -597,16 +590,6 @@ export function BroadcastApp() {
           </button>
         </div>
       )}
-      <AnimatePresence>
-        {notice?.kind === "phase" && started && notice.teams.length > 0 && (
-          <Ceremony
-            key={notice.id}
-            event={notice}
-            s={s}
-            onClose={() => setNotice(null)}
-          />
-        )}
-      </AnimatePresence>
       {panel && (
         <Dialog
           title={
@@ -732,8 +715,8 @@ function buildGuide(s: State, tied: boolean, roundDone: boolean) {
         : "Ja tenim les parelles classificades!",
       detail: tied
         ? "L’organització decidix els empats que els criteris esportius no han resolt."
-        : "La mascota anunciarà totes les parelles que continuen cap a la copa.",
-      action: tied ? "REVISAR DESEMPATS" : "ANUNCIAR CLASSIFICATS",
+        : "Els sis primers de cada futbolí passen als creuaments. En confirmar-ho, la classificació mostrarà els partits de copa assignats a cada futbolí.",
+      action: tied ? "REVISAR DESEMPATS" : "COMENÇAR ELIMINATÒRIES",
     };
   if (s.phase === "QUALIFIED")
     return {
@@ -758,7 +741,9 @@ function buildGuide(s: State, tied: boolean, roundDone: boolean) {
   return {
     title: "Posa el resultat directament en cada futbolí.",
     detail:
-      "Escriu les dues partides i confirma. El sistema actualitza els punts i posa en joc la parella següent.",
+      s.phase === "GROUP_STAGE"
+        ? "Escriu les dues partides i confirma. El sistema actualitza els punts i posa en joc la parella següent."
+        : "Anota dues partides i, si queden empatades, juga la tercera. En confirmar, el sistema prepara el següent creuament d’este futbolí.",
     action: null,
   };
 }
@@ -1095,22 +1080,16 @@ function LiveBoard({
     roundCompleted = currentRound.filter(
       (m) => m.status === "completed",
     ).length;
-  const groupPhase = [
-    "GROUP_STAGE",
-    "GROUP_STAGE_COMPLETE",
-    "QUALIFIED",
-  ].includes(s.phase);
+  const groupPhase = ["GROUP_STAGE", "GROUP_STAGE_COMPLETE"].includes(s.phase);
   const progressTotal = groupPhase ? groupMatches.length : currentRound.length,
     progressDone = groupPhase ? done : roundCompleted;
   const lastMatch = s.matches
     .filter((m) => m.table === table && m.status === "completed")
     .at(-1);
-  const bigDetail = ["bracket", "qualified", "final", "champion"].includes(
-    view,
-  );
+  const bigDetail = ["bracket", "final", "champion"].includes(view);
   return (
     <section
-      className={`arena-board table-${table} ${bigDetail ? "board-compact" : ""} ${celebrating ? "board-celebrating" : ""}`}
+      className={`arena-board table-${table} ${bigDetail ? "board-compact" : ""} ${celebrating ? "board-celebrating" : ""} ${s.phase === "FINAL" && !match ? "final-idle" : ""}`}
     >
       <div className="board-title">
         <PlayerFigure blue={table === 2} />
@@ -1241,7 +1220,9 @@ function LiveBoard({
             <div className="idle-caption">
               {s.phase === "CHAMPION"
                 ? "TORNEIG FINALITZAT"
-                : "PREPARAT PER A LA SEGÜENT RONDA"}
+                : s.phase === "FINAL"
+                  ? `LA FINAL ES JUGA AL FUTBOLÍ ${s.matches.find((m) => m.phase === "FINAL")?.table ?? 1}`
+                  : "PREPARAT PER A LA SEGÜENT RONDA"}
             </div>
           )}
         </div>
@@ -1265,34 +1246,19 @@ function LiveBoard({
           {q[1]
             ? `${teamName(s, q[1].a)} vs ${teamName(s, q[1].b)}`
             : match
-              ? "Últim enfrontament de la fase"
+              ? s.phase === "FINAL"
+                ? "La gran final està en joc"
+                : "Últim enfrontament de la fase"
               : s.phase === "CHAMPION"
                 ? "Gràcies per participar!"
-                : "Esperant la següent fase"}
+                : s.phase === "FINAL"
+                  ? `Final al futbolí ${s.matches.find((m) => m.phase === "FINAL")?.table ?? 1}`
+                  : "Esperant la següent fase"}
         </b>
       </div>
       {!bigDetail && (
         <div className="board-information">
-          {view === "upcoming" ? (
-            <>
-              <div className="board-section-title">
-                <CalendarDays /> PRÒXIMS ENFRONTAMENTS
-              </div>
-              <div className="board-queue">
-                {q.slice(0, 6).map((m, i) => (
-                  <div key={m.id} className={i === 0 ? "now" : ""}>
-                    <span>
-                      {i === 0 ? "EN JOC" : i === 1 ? "PRÒXIM" : "DESPRÉS"}
-                    </span>
-                    <b>{teamName(s, m.a)}</b>
-                    <i>vs</i>
-                    <b>{teamName(s, m.b)}</b>
-                  </div>
-                ))}
-                {!q.length && <p>Fase completada. Bona partida!</p>}
-              </div>
-            </>
-          ) : (
+          {groupPhase ? (
             <>
               <Standings s={s} table={table} full />
               <div className="board-qualified">
@@ -1305,6 +1271,24 @@ function LiveBoard({
                 </span>
               </div>
             </>
+          ) : (
+            <div className="board-knockout-list">
+              <div className="board-section-title">
+                <Trophy /> {phaseNames[s.phase].toUpperCase()} · AL MILLOR DE 3
+              </div>
+              {currentRound.map((roundMatch) => (
+                <MatchCard key={roundMatch.id} s={s} match={roundMatch} />
+              ))}
+              {!currentRound.length && (
+                <p>
+                  {s.phase === "FINAL"
+                    ? `La gran final es juga al futbolí ${s.matches.find((m) => m.phase === "FINAL")?.table ?? 1}.`
+                    : s.phase === "QUALIFIED"
+                      ? "Preparant els creuaments de copa."
+                      : "Este futbolí no té partits assignats en esta ronda."}
+                </p>
+              )}
+            </div>
           )}
         </div>
       )}
@@ -1411,61 +1395,5 @@ function Champion({ s }: { s: State }) {
       </div>
       <TrophyArt />
     </div>
-  );
-}
-function Ceremony({
-  event,
-  s,
-  onClose,
-}: {
-  event: State["events"][number];
-  s: State;
-  onClose: () => void;
-}) {
-  const [index, setIndex] = useState(0);
-  useEffect(() => {
-    const t = setInterval(
-      () => setIndex((i) => (i + 1) % event.teams.length),
-      1500,
-    );
-    return () => clearInterval(t);
-  }, [event]);
-  const id = event.teams[index];
-  return (
-    <motion.aside
-      className="arena-ceremony"
-      initial={{ y: 180, opacity: 0, rotate: 2 }}
-      animate={{ y: 0, opacity: 1, rotate: 0 }}
-      exit={{ y: 180, opacity: 0 }}
-      transition={{ type: "spring", damping: 22, stiffness: 150 }}
-    >
-      <div className="ceremony-rays" />
-      <MascotActor mood="celebrate" />
-      <div className="ceremony-copy">
-        <span>LA MASCOTA ANUNCIA</span>
-        <h2>{event.title}</h2>
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={id}
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -50 }}
-          >
-            <small>
-              PARELLA {index + 1} DE {event.teams.length}
-            </small>
-            <strong>{teamName(s, id)}</strong>
-            <p>Parella classificada</p>
-          </motion.div>
-        </AnimatePresence>
-      </div>
-      <TrophyArt />
-      <button onClick={onClose} aria-label="Tancar anunci">
-        <X />
-      </button>
-      <div className="ceremony-progress">
-        <i style={{ animationDuration: `${event.teams.length * 1500}ms` }} />
-      </div>
-    </motion.aside>
   );
 }

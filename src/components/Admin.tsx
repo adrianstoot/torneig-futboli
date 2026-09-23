@@ -1257,7 +1257,11 @@ export function SettingsPanel({
           <label>
             Fixar una vista
             <select
-              value={s.settings.view}
+              value={
+                ["upcoming", "qualified"].includes(s.settings.view)
+                  ? "standings"
+                  : s.settings.view
+              }
               onChange={(e) =>
                 run(() =>
                   commit((x) => ({

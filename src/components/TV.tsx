@@ -282,8 +282,6 @@ function TeamLabel({ team }: { team?: Team }) {
 export const tvViews = [
   { id: "live", label: "En directe", icon: Activity },
   { id: "standings", label: "Classificació", icon: BarChart3 },
-  { id: "upcoming", label: "Pròxims partits", icon: CalendarDays },
-  { id: "qualified", label: "Classificats", icon: Users },
   { id: "bracket", label: "Camí a la copa", icon: Trophy },
 ];
 export function Bracket({ s }: { s: State }) {
@@ -486,7 +484,7 @@ export function TV({ s }: { s: State }) {
     if (last.kind === "champion") setView("champion");
     const timeout = setTimeout(
       () => setNotice(null),
-      last.kind === "phase" ? Math.max(12000, last.teams.length * 1600) : 6000,
+      last.kind === "champion" ? 5000 : 3500,
     );
     return () => clearTimeout(timeout);
   }, [last?.id]);

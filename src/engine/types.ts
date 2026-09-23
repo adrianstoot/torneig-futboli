@@ -108,7 +108,7 @@ export const initialState = (): State => ({
     normalized: true,
     tieOrder: [],
     tieRules: ["diff", "gf", "direct"],
-    knockout: "two-tiebreak",
+    knockout: "best-of-three",
   },
   events: [],
   demo: false,
