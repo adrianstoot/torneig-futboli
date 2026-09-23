@@ -275,9 +275,7 @@ function TeamLabel({ team }: { team?: Team }) {
   return (
     <div className="team-label">
       <strong>{team?.shortName || team?.name || "—"}</strong>
-      <span>
-        {team ? `${team.player1} / ${team.player2}` : "Sense partit assignat"}
-      </span>
+      <span>{team ? "Parella en joc" : "Sense partit assignat"}</span>
     </div>
   );
 }
@@ -437,11 +435,7 @@ function Celebration({ s }: { s: State }) {
               .join("") ||
             "El gran moment està per arribar"}
         </h3>
-        <p>
-          {team
-            ? `${team.player1} / ${team.player2}`
-            : "Tota la falla amb vosaltres!"}
-        </p>
+        <p>Tota la falla amb vosaltres!</p>
       </div>
       <TrophyArt />
     </div>

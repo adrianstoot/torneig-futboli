@@ -541,7 +541,9 @@ export function Setup({
   const save = (e: FormEvent) => {
     e.preventDefault();
     run(async () => {
-      await commit((x) => addTeam(x, form));
+      await commit((x) =>
+        addTeam(x, { ...form, player1: form.name, player2: form.name }),
+      );
       setForm(empty());
     });
   };
@@ -585,28 +587,6 @@ export function Setup({
                   placeholder="Com es diu el vostre equip?"
                 />
               </label>
-              <div className="form-row">
-                <label>
-                  Jugador / jugadora 1
-                  <input
-                    maxLength={80}
-                    required
-                    value={form.player1}
-                    onChange={(e) => field("player1", e.target.value)}
-                    placeholder="Nom del primer jugador"
-                  />
-                </label>
-                <label>
-                  Jugador / jugadora 2
-                  <input
-                    maxLength={80}
-                    required
-                    value={form.player2}
-                    onChange={(e) => field("player2", e.target.value)}
-                    placeholder="Nom del segon jugador"
-                  />
-                </label>
-              </div>
               <label>
                 Nom curt per a la TV <small>Opcional</small>
                 <input
@@ -669,13 +649,11 @@ export function Setup({
         {showBulk && !locked && (
           <div className="bulk-form">
             <label>
-              Una parella per línia: Nom parella; Jugador 1; Jugador 2
+              Una parella per línia: només el nom de l’equip
               <textarea
                 value={bulk}
                 onChange={(e) => setBulk(e.target.value)}
-                placeholder={
-                  "Els de la falla; Anna; Marc\nBona partida; Pau; Maria"
-                }
+                placeholder={"Els Esclatasangs\nLa Falla Valenta"}
                 rows={4}
               />
             </label>
@@ -687,16 +665,13 @@ export function Setup({
                     for (const line of bulk
                       .split("\n")
                       .filter((l) => l.trim())) {
-                      const p = line.split(";").map((x) => x.trim());
-                      if (p.length !== 3)
-                        throw Error(
-                          "Cada línia ha de tindre exactament tres camps separats per punt i coma.",
-                        );
+                      const name = line.trim();
+                      if (!name) throw Error("Escriu el nom de cada parella.");
                       x = addTeam(x, {
                         ...empty(),
-                        name: p[0],
-                        player1: p[1],
-                        player2: p[2],
+                        name,
+                        player1: name,
+                        player2: name,
                       });
                     }
                     return x;
@@ -719,9 +694,6 @@ export function Setup({
                 </span>
                 <div>
                   <b>{t.name}</b>
-                  <span>
-                    {t.player1} / {t.player2}
-                  </span>
                 </div>
                 {!locked && (
                   <div className="row-actions">
@@ -848,9 +820,6 @@ export function Draw({
                   <span>{String(i + 1).padStart(2, "0")}</span>
                   <div>
                     <b>{team.name}</b>
-                    <small>
-                      {team.player1} / {team.player2}
-                    </small>
                   </div>
                   {s.phase === "DRAW" && (
                     <select

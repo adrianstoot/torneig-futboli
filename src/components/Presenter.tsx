@@ -37,9 +37,6 @@ export function Presenter({ s, event }: { s: State; event: Event }) {
                 {index + 1} / {event.teams.length} · FUTBOLÍ {team.group}
               </small>
               <strong>{team.name}</strong>
-              <b>
-                {team.player1} / {team.player2}
-              </b>
             </motion.div>
           </AnimatePresence>
         )}

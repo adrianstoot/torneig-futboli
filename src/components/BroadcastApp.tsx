@@ -244,9 +244,6 @@ export function BroadcastApp() {
     return () => clearTimeout(timer);
   }, [interaction]);
   const guide = buildGuide(s, tied, roundDone);
-  const guideTitle =
-    interaction || (notice?.kind === "result" ? notice.title : guide.title);
-  const guideDetail = notice?.kind === "result" ? notice.detail : guide.detail;
   const guideAction = () => {
     if (s.phase === "SETUP") void run(() => commit(draw));
     else if (s.phase === "DRAW") void run(() => commit(startGroups));
@@ -442,12 +439,15 @@ export function BroadcastApp() {
             }
           />
         </div>
-        <div className="guide-copy">
-          <span>
-            {s.demo ? "ESTÀS PROVANT EL TORNEIG" : "LA MASCOTA T’ACOMPANYA"}
-          </span>
-          <strong>{guideTitle}</strong>
-          <p>{guideDetail}</p>
+        <div className="ticker-window" aria-label="Ròtul del torneig">
+          <div className="ticker-track">
+            <span>APUNTA LES PARELLES DEL TORNEIG</span>
+            <b>✦</b>
+            <span>APUNTA LES PARELLES DEL TORNEIG</span>
+            <b>✦</b>
+            <span>APUNTA LES PARELLES DEL TORNEIG</span>
+            <b>✦</b>
+          </div>
         </div>
         <div className="guide-actions">
           {guide.action && (
@@ -654,7 +654,7 @@ function buildGuide(s: State, tied: boolean, roundDone: boolean) {
         ? `${s.teams.length} parelles inscrites. Qui més s’apunta?`
         : "Comencem per les parelles!",
       detail:
-        "Inscriu els jugadors o activa el mode prova amb 30 parelles creades automàticament.",
+        "Inscriu les parelles o activa el mode prova amb 30 equips creats automàticament.",
       action: "REALITZAR SORTEIG",
     };
   if (s.phase === "DRAW")
@@ -714,8 +714,6 @@ function Registration({
   onDraw: () => void;
 }) {
   const [name, setName] = useState(""),
-    [p1, setP1] = useState(""),
-    [p2, setP2] = useState(""),
     [editing, setEditing] = useState<Team | null>(null),
     [bulk, setBulk] = useState(""),
     [bulkOpen, setBulkOpen] = useState(false);
@@ -726,16 +724,15 @@ function Registration({
       await commit((x) =>
         addTeam(x, {
           id: editing?.id || uid(),
-          name: name.trim() || `${p1.trim()} i ${p2.trim()}`,
-          player1: p1.trim(),
-          player2: p2.trim(),
+          name: name.trim(),
+          // Kept internally for backwards-compatible saved tournaments; never shown.
+          player1: name.trim(),
+          player2: name.trim(),
           shortName: editing?.shortName || "",
           group: editing?.group || null,
         }),
       );
       setName("");
-      setP1("");
-      setP2("");
       setEditing(null);
     });
   }
@@ -750,37 +747,15 @@ function Registration({
           <p>Apunta la teua parella. Nosaltres ens encarreguem de la resta.</p>
         </div>
         <form className="registration-form" onSubmit={add}>
-          <label>
-            JUGADOR / JUGADORA 1
+          <label className="pair-name pair-name-primary">
+            NOM DE LA PARELLA
             <input
               required
-              maxLength={80}
-              value={p1}
-              disabled={locked}
-              onChange={(e) => setP1(e.target.value)}
-              placeholder="Nom del primer jugador"
-            />
-          </label>
-          <label>
-            JUGADOR / JUGADORA 2
-            <input
-              required
-              maxLength={80}
-              value={p2}
-              disabled={locked}
-              onChange={(e) => setP2(e.target.value)}
-              placeholder="Nom del segon jugador"
-            />
-          </label>
-          <label className="pair-name">
-            NOM DE LA PARELLA{" "}
-            <small>Opcional · també podem usar els vostres noms</small>
-            <input
               maxLength={80}
               value={name}
               disabled={locked}
               onChange={(e) => setName(e.target.value)}
-              placeholder="Com es diu el vostre equip?"
+              placeholder="Exemple: Els Esclatasangs"
             />
           </label>
           <button className="arena-primary" disabled={locked} type="submit">
@@ -794,8 +769,6 @@ function Registration({
               onClick={() => {
                 setEditing(null);
                 setName("");
-                setP1("");
-                setP2("");
               }}
             >
               Cancel·lar edició
@@ -818,7 +791,7 @@ function Registration({
         {bulkOpen && (
           <div className="registration-bulk">
             <label>
-              Una parella per línia: Equip; Jugador 1; Jugador 2
+              Una parella per línia: només el nom de l’equip
               <textarea
                 value={bulk}
                 onChange={(e) => setBulk(e.target.value)}
@@ -833,18 +806,13 @@ function Registration({
                     for (const line of bulk
                       .split("\n")
                       .filter((l) => l.trim())) {
-                      const [name, player1, player2, ...rest] = line
-                        .split(";")
-                        .map((v) => v.trim());
-                      if (rest.length || !player2)
-                        throw Error(
-                          "Cada línia necessita tres camps: Equip; Jugador 1; Jugador 2.",
-                        );
+                      const name = line.trim();
+                      if (!name) throw Error("Escriu el nom de cada parella.");
                       x = addTeam(x, {
                         id: uid(),
                         name,
-                        player1,
-                        player2,
+                        player1: name,
+                        player2: name,
                         shortName: "",
                         group: null,
                       });
@@ -871,14 +839,9 @@ function Registration({
                   onClick={() => {
                     setEditing(t);
                     setName(t.name);
-                    setP1(t.player1);
-                    setP2(t.player2);
                   }}
                 >
                   <b>{t.name}</b>
-                  <small>
-                    {t.player1} / {t.player2}
-                  </small>
                 </button>
                 <button
                   title={`Retirar ${t.name}`}
@@ -1139,7 +1102,7 @@ function LiveBoard({
               {match ? teamName(s, match.a) : "En espera"}
             </motion.strong>
           </AnimatePresence>
-          <small>{match ? players(s, match.a) : "Bona partida!"}</small>
+          <small>{match ? "PARELLA EN JOC" : "Bona partida!"}</small>
         </div>
         <div
           className="board-points"
@@ -1165,7 +1128,7 @@ function LiveBoard({
               {match ? teamName(s, match.b) : "Sense partit"}
             </motion.strong>
           </AnimatePresence>
-          <small>{match ? players(s, match.b) : "Tota la falla juga"}</small>
+          <small>{match ? "PARELLA ENFRONTADA" : "Tota la falla juga"}</small>
         </div>
       </div>
       <form className="board-match-zone" onSubmit={submit}>
@@ -1356,10 +1319,6 @@ function LiveBoard({
     </section>
   );
 }
-function players(s: State, id: string) {
-  const t = s.teams.find((t) => t.id === id);
-  return t ? `${t.player1} i ${t.player2}` : "";
-}
 function FlagIcon() {
   return (
     <svg viewBox="0 0 24 24" className="flag-icon" aria-hidden="true">
@@ -1378,7 +1337,7 @@ function FinalScene({ s }: { s: State }) {
       <div className="final-team">
         <span>FINALISTA</span>
         <h2>{match ? teamName(s, match.a) : "Qui arribarà a la final?"}</h2>
-        <p>{match ? players(s, match.a) : "La copa vos espera"}</p>
+        <p>La copa vos espera</p>
       </div>
       <div className="final-cup">
         <span>LA GRAN FINAL</span>
@@ -1388,7 +1347,7 @@ function FinalScene({ s }: { s: State }) {
       <div className="final-team">
         <span>FINALISTA</span>
         <h2>{match ? teamName(s, match.b) : "El torneig ho decidirà"}</h2>
-        <p>{match ? players(s, match.b) : "Bona partida!"}</p>
+        <p>Bona partida!</p>
       </div>
     </div>
   );
@@ -1411,11 +1370,7 @@ function Champion({ s }: { s: State }) {
         <h3>
           {s.champion ? teamName(s, s.champion) : "Qui guanyarà el torneig?"}
         </h3>
-        <p>
-          {s.champion
-            ? players(s, s.champion)
-            : "Joc net. Bona companyia. Gran falla!"}
-        </p>
+        <p>Joc net. Bona companyia. Gran falla!</p>
       </div>
       <TrophyArt />
     </div>
@@ -1463,7 +1418,7 @@ function Ceremony({
               PARELLA {index + 1} DE {event.teams.length}
             </small>
             <strong>{teamName(s, id)}</strong>
-            <p>{players(s, id)}</p>
+            <p>Parella classificada</p>
           </motion.div>
         </AnimatePresence>
       </div>
