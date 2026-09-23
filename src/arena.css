@@ -474,10 +474,10 @@
 }
 .registration-side-mascot {
   position: absolute;
-  right: 8%;
-  bottom: 10vh;
-  width: 14vh;
-  height: 19vh;
+  right: 5%;
+  bottom: 8vh;
+  width: 21vh;
+  height: 29vh;
   z-index: 2;
   animation: mascotSideFloat 3.8s ease-in-out infinite;
   pointer-events: none;
