@@ -3,14 +3,26 @@ import { initialState, type State } from "./engine/types";
 import { validateState } from "./engine/tournament";
 const KEY = "futboli-2027-v1",
   UNDO = KEY + "-undo",
-  BACKUP = KEY + "-backup";
+  BACKUP = KEY + "-backup",
+  SOUND_UPGRADE = KEY + "-all-buttons-audio-v1";
 const listeners = new Set<() => void>();
 export let recoveryError = "";
 function read(): State {
   const raw = localStorage.getItem(KEY);
-  if (!raw) return initialState();
+  if (!raw) {
+    localStorage.setItem(SOUND_UPGRADE, "done");
+    return initialState();
+  }
   try {
-    return validateState(JSON.parse(raw));
+    const saved = validateState(JSON.parse(raw));
+    // Earlier releases defaulted all sound to off. Enable the new soundscape
+    // once for existing tournaments; later manual mute choices are preserved.
+    if (localStorage.getItem(SOUND_UPGRADE) !== "done") {
+      saved.settings.sound = true;
+      localStorage.setItem(KEY, JSON.stringify(saved));
+      localStorage.setItem(SOUND_UPGRADE, "done");
+    }
+    return saved;
   } catch {
     throw Error(
       "La còpia principal no es pot llegir. Restaura una còpia des dels ajustos.",

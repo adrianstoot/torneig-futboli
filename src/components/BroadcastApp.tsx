@@ -64,10 +64,12 @@ import {
 } from "../engine/types";
 import { simulateRound } from "../engine/practice";
 import { useEventAudio } from "../audio";
+import { GlobalButtonAudio } from "./GlobalButtonAudio";
 import { Table3D } from "./Table3D";
 import { MascotActor } from "./MascotActor";
 import { Standings, TrophyArt, teamName } from "./TV";
-import { CupJourney, MatchCard } from "./TournamentViews";
+import { MatchCard } from "./TournamentViews";
+import { WorldCupBracket } from "./WorldCupBracket";
 import {
   Dialog,
   Draw,
@@ -79,6 +81,7 @@ import {
 
 type View = "live" | "standings" | "bracket" | "final" | "champion";
 type Panel = "teams" | "settings" | "results" | "ties" | null;
+type Transition = "opening" | "qualification" | null;
 const views = [
   { id: "live", label: "Seguiment en directe", Icon: Radio },
   { id: "standings", label: "Classificació", Icon: BarChart3 },
@@ -104,7 +107,9 @@ export function BroadcastApp() {
   const [interaction, setInteraction] = useState("");
   const [artReady, setArtReady] = useState(false);
   const [focusMode, setFocusMode] = useState(false);
-  const [tournamentTransition, setTournamentTransition] = useState(false);
+  const [tournamentTransition, setTournamentTransition] =
+    useState<Transition>(null);
+  const transitionFinishing = useRef(false);
   const [musicEnabled, setMusicEnabled] = useState(
     () => localStorage.getItem("futboli-background-music") !== "off",
   );
@@ -176,13 +181,13 @@ export function BroadcastApp() {
   useEffect(() => {
     const audio = musicRef.current;
     if (!audio || !musicStarted) return;
-    if (!musicEnabled) {
+    if (!musicEnabled || tournamentTransition) {
       audio.pause();
       return;
     }
     audio.volume = 0.55;
     void audio.play().catch(() => undefined);
-  }, [musicEnabled, musicStarted]);
+  }, [musicEnabled, musicStarted, tournamentTransition]);
   const changeView = (v: View) => {
     setView(v);
     void run(() =>
@@ -204,6 +209,59 @@ export function BroadcastApp() {
       setView(phase === "CHAMPION" ? "champion" : "standings");
       setPanel(null);
     });
+  const beginQualificationTransition = () => {
+    if (busy || tournamentTransition || s.phase !== "GROUP_STAGE_COMPLETE")
+      return;
+    if (tied) {
+      setPanel("ties");
+      return;
+    }
+    transitionFinishing.current = false;
+    setPanel(null);
+    setTournamentTransition("qualification");
+  };
+  const finishTournamentTransition = () => {
+    if (transitionFinishing.current) return;
+    transitionFinishing.current = true;
+    if (tournamentTransition === "qualification") {
+      void run(async () => {
+        await commit((current) => {
+          if (current.phase !== "GROUP_STAGE_COMPLETE")
+            throw Error("La fase de grups ha canviat. Revisa el torneig.");
+          return advance(advance(current));
+        });
+        setView("standings");
+        setNotice(getState().events.at(-1) || null);
+      }).finally(() => {
+        setTournamentTransition(null);
+        setMusicStarted(true);
+      });
+      return;
+    }
+    setTournamentTransition(null);
+    setMusicStarted(true);
+  };
+  const simulateCurrentPhase = async () => {
+    await commit((current) => {
+      if (current.phase !== s.phase)
+        throw Error("La fase ha canviat. Revisa els partits abans de simular.");
+      const simulated = simulateRound(current);
+      if (
+        [
+          "PRELIMINARY",
+          "ROUND_OF_16",
+          "QUARTER_FINALS",
+          "SEMI_FINALS",
+        ].includes(simulated.phase) &&
+        simulated.matches
+          .filter((match) => match.phase === simulated.phase)
+          .every((match) => match.status === "completed")
+      )
+        return advance(simulated);
+      return simulated;
+    });
+    setView(getState().phase === "CHAMPION" ? "champion" : "standings");
+  };
   useEffect(() => {
     if (s.phase === "CHAMPION") setView("champion");
   }, [s.phase]);
@@ -233,7 +291,8 @@ export function BroadcastApp() {
   const guideAction = () => {
     if (s.phase === "SETUP") void run(() => commit(draw));
     else if (s.phase === "DRAW") void run(() => commit(startGroups));
-    else if (s.phase === "GROUP_STAGE_COMPLETE" && tied) setPanel("ties");
+    else if (s.phase === "GROUP_STAGE_COMPLETE")
+      beginQualificationTransition();
     else if (s.phase === "CHAMPION") {
       setView("champion");
       void run(() =>
@@ -262,12 +321,14 @@ export function BroadcastApp() {
         });
         return draw({ ...current, teams });
       });
-      setTournamentTransition(true);
+      transitionFinishing.current = false;
+      setTournamentTransition("opening");
     });
   return (
     <div
       className={`arena-app ${artReady ? "art-ready" : ""} ${started ? "tournament-started" : "pre-tournament"} ${focusMode ? "audience-focus" : ""} view-${view}`}
     >
+      <GlobalButtonAudio enabled={s.settings.sound} />
       <div className="arena-backdrop" />
       <div className="arena-energy" aria-hidden="true">
         <i />
@@ -422,7 +483,7 @@ export function BroadcastApp() {
                   transition={{ duration: 0.38 }}
                 >
                   {view === "bracket" ? (
-                    <CupJourney s={s} />
+                    <WorldCupBracket state={s} />
                   ) : view === "final" ? (
                     <FinalScene s={s} />
                   ) : (
@@ -471,22 +532,29 @@ export function BroadcastApp() {
               <ChevronRight />
             </button>
           )}
-          {s.demo &&
-            started &&
-            s.phase !== "CHAMPION" &&
+          {view === "standings" &&
+            [
+              "GROUP_STAGE",
+              "PRELIMINARY",
+              "ROUND_OF_16",
+              "QUARTER_FINALS",
+              "SEMI_FINALS",
+              "FINAL",
+            ].includes(s.phase) &&
             round.some((m) => m.status !== "completed") && (
               <button
                 className="arena-secondary"
+                disabled={busy || !!tournamentTransition}
                 onClick={() =>
                   confirm(
-                    "Simular la resta de la fase",
-                    "Només en mode prova: el sistema generarà els resultats pendents d’esta fase. També pots introduir-los tu en cada futbolí.",
-                    () => run(() => commit(simulateRound)),
+                    "SIMULAR FASE",
+                    "Es generaran resultats ficticis per als partits pendents i el torneig quedarà marcat com a mode prova. Podràs desfer l’acció. En les eliminatòries es prepararà la ronda següent automàticament.",
+                    simulateCurrentPhase,
                   )
                 }
               >
                 <FlaskConical />
-                Simular fase
+                SIMULAR FASE
               </button>
             )}
         </div>
@@ -494,34 +562,31 @@ export function BroadcastApp() {
       <AnimatePresence>
         {tournamentTransition && (
           <motion.div
+            key={tournamentTransition}
             className="tournament-transition"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.35 }}
             role="dialog"
-            aria-label="Comença el torneig"
+            aria-label={
+              tournamentTransition === "qualification"
+                ? "Comença la fase classificatòria"
+                : "Comença el torneig"
+            }
           >
             <video
               className="tournament-transition-video"
-              src={`${import.meta.env.BASE_URL}futbolin-transicion-inicio-torneo.mp4`}
+              src={`${import.meta.env.BASE_URL}${tournamentTransition === "qualification" ? "transicion-clasificados.mp4" : "futbolin-transicion-inicio-torneo.mp4"}`}
               autoPlay
               playsInline
-              onEnded={() => {
-                setTournamentTransition(false);
-                setMusicStarted(true);
-              }}
-              onError={() => {
-                setTournamentTransition(false);
-                setMusicStarted(true);
-              }}
+              onEnded={finishTournamentTransition}
+              onError={finishTournamentTransition}
             />
             <button
               className="tournament-transition-skip"
-              onClick={() => {
-                setTournamentTransition(false);
-                setMusicStarted(true);
-              }}
+              disabled={busy}
+              onClick={finishTournamentTransition}
             >
               OMITIR
             </button>
@@ -642,8 +707,12 @@ export function BroadcastApp() {
                   classificats.
                 </p>
                 <TieResolver s={s} run={run} />
-                <button className="arena-primary" onClick={advancePhase}>
-                  CONFIRMAR CLASSIFICATS <Trophy />
+                <button
+                  className="arena-primary"
+                  disabled={tied || busy}
+                  onClick={beginQualificationTransition}
+                >
+                  FASE CLASSIFICATÒRIA <Trophy />
                 </button>
               </>
             )}
@@ -716,7 +785,7 @@ function buildGuide(s: State, tied: boolean, roundDone: boolean) {
       detail: tied
         ? "L’organització decidix els empats que els criteris esportius no han resolt."
         : "Els sis primers de cada futbolí passen als creuaments. En confirmar-ho, la classificació mostrarà els partits de copa assignats a cada futbolí.",
-      action: tied ? "REVISAR DESEMPATS" : "COMENÇAR ELIMINATÒRIES",
+      action: tied ? "REVISAR DESEMPATS" : "FASE CLASSIFICATÒRIA",
     };
   if (s.phase === "QUALIFIED")
     return {
@@ -1081,6 +1150,9 @@ function LiveBoard({
       (m) => m.status === "completed",
     ).length;
   const groupPhase = ["GROUP_STAGE", "GROUP_STAGE_COMPLETE"].includes(s.phase);
+  const inactive =
+    ["PRELIMINARY", "ROUND_OF_16", "QUARTER_FINALS", "SEMI_FINALS", "FINAL"].includes(s.phase) &&
+    currentRound.length === 0;
   const progressTotal = groupPhase ? groupMatches.length : currentRound.length,
     progressDone = groupPhase ? done : roundCompleted;
   const lastMatch = s.matches
@@ -1089,7 +1161,8 @@ function LiveBoard({
   const bigDetail = ["bracket", "final", "champion"].includes(view);
   return (
     <section
-      className={`arena-board table-${table} ${bigDetail ? "board-compact" : ""} ${celebrating ? "board-celebrating" : ""} ${s.phase === "FINAL" && !match ? "final-idle" : ""}`}
+      className={`arena-board table-${table} ${bigDetail ? "board-compact" : ""} ${celebrating ? "board-celebrating" : ""} ${inactive ? "board-inactive" : ""}`}
+      aria-label={`Futbolí ${table}${inactive ? " · en pausa en esta ronda" : ""}`}
     >
       <div className="board-title">
         <PlayerFigure blue={table === 2} />
@@ -1100,9 +1173,11 @@ function LiveBoard({
           <i />
           {match
             ? "EN JOC"
-            : s.phase === "CHAMPION"
-              ? "FINALITZAT"
-              : "EN ESPERA"}
+            : inactive
+              ? "APAGAT"
+              : s.phase === "CHAMPION"
+                ? "FINALITZAT"
+                : "EN ESPERA"}
         </span>
       </div>
       <div className="board-score-strip">

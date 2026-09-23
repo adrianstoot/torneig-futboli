@@ -104,7 +104,7 @@ export const initialState = (): State => ({
     auto: true,
     seconds: 20,
     view: "live",
-    sound: false,
+    sound: true,
     normalized: true,
     tieOrder: [],
     tieRules: ["diff", "gf", "direct"],

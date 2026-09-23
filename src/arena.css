@@ -3668,6 +3668,22 @@
   box-shadow: inset 0 0 16px #66adbc22;
 }
 
+/* A table without a fixture in the active knockout round is visibly off. */
+.arena-board.board-inactive {
+  filter: grayscale(1) brightness(.56);
+  opacity: .84;
+  box-shadow: 0 4px 16px #000b, inset 0 0 24px #9da8b021;
+}
+.arena-board.board-inactive .board-status {
+  color: #d7e1e7;
+  background: #3d4b59;
+}
+.arena-board.board-inactive .board-status i {
+  background: #a3b1b8;
+  box-shadow: none;
+  animation: none;
+}
+
 .cup-timeline {
   min-height: 4vh;
 }

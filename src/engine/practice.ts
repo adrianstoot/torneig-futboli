@@ -1,5 +1,13 @@
 import { initialState, uid, tables, type State } from "./types";
-import { draw, startGroups, saveResult, queue, event } from "./tournament";
+import {
+  draw,
+  startGroups,
+  saveResult,
+  queue,
+  event,
+  qualifiers,
+  standings,
+} from "./tournament";
 const names = [
   "Hugo",
   "Marc",
@@ -83,9 +91,8 @@ export function createPractice(): State {
   );
 }
 export function simulateRound(input: State): State {
-  if (!input.demo)
-    throw Error("La simulació només està disponible en mode prova.");
   let s = structuredClone(input);
+  if (!s.demo) s.demo = true;
   let safety = 0;
   const phase = s.phase;
   while (s.phase === phase && safety++ < 300) {
@@ -103,6 +110,15 @@ export function simulateRound(input: State): State {
     if (phase !== "GROUP_STAGE" && split)
       games.push({ a: win ? 10 : 6, b: win ? 5 : 10 });
     s = saveResult(s, m.id, games);
+  }
+  // Fictional results can leave perfectly level teams. Give every pair a
+  // deterministic test ranking so the organiser can continue the dry run.
+  if (s.phase === "GROUP_STAGE_COMPLETE") {
+    const ranked = qualifiers(s).map((row) => row.id);
+    const remaining = tables.flatMap((table) =>
+      standings(s, table).map((row) => row.id),
+    );
+    s.settings.tieOrder = [...new Set([...s.settings.tieOrder, ...ranked, ...remaining])];
   }
   return s;
 }

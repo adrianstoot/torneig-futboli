@@ -309,55 +309,94 @@ export function Table3D({
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
     let frame = 0,
       last = 0;
-    const points = [
-      [-2.9, -0.6],
-      [1.2, 1.5],
-      [3.4, -0.7],
-      [-1, -1.6],
-      [-3.5, 0.9],
-      [2.2, 0.4],
-      [0.4, -1.3],
-    ];
+    // The path stays inside the painted field even at the curve's extremes.
+    const ballPath = new THREE.CatmullRomCurve3(
+      [
+        [-3.35, -0.45],
+        [-1.65, 1.35],
+        [0.2, -0.9],
+        [2.1, 1.45],
+        [3.45, 0.3],
+        [1.35, -1.55],
+        [-1.55, -1.25],
+        [-3.15, 0.95],
+        [-0.5, 0.45],
+        [2.6, -1.25],
+      ].map(([x, z]) => new THREE.Vector3(x, 0.22, z)),
+      true,
+      "centripetal",
+    );
+    const clamp = (value: number, min: number, max: number) =>
+      Math.max(min, Math.min(max, value));
     const animate = (time: number) => {
       frame = requestAnimationFrame(animate);
       if (document.hidden || time - last < (reduced.matches ? 180 : 15)) return;
       last = time;
       const t = time / 1000 + table * 2.7;
       const playing = activity.current && !reduced.matches;
+      if (playing) {
+        const travel = (t * 0.23 + Math.sin(t * 1.1) * 0.018) % 1;
+        const position = ballPath.getPoint(travel);
+        ball.position.set(
+          clamp(position.x, -3.75, 3.75),
+          0.22 + Math.pow(Math.max(0, Math.sin(t * 8.5)), 10) * 0.055,
+          clamp(position.z, -1.92, 1.92),
+        );
+        ball.rotation.x += 0.11;
+        ball.rotation.z += 0.075;
+      }
       for (const [i, rod] of rods.entries()) {
-        rod.position.z = playing ? Math.sin(t * 2.4 + i * 1.4) * 0.18 : 0;
-        rod.rotation.z = playing
-          ? Math.sin(t * 4.3 + i * 1.8) *
-            (0.12 + Math.pow(Math.max(0, Math.sin(t * 2 + i)), 8) * 0.9)
-          : 0;
+        if (!playing) {
+          rod.position.z = 0;
+          rod.rotation.z = 0;
+          continue;
+        }
+        const nearBall = Math.max(
+          0,
+          1 - Math.abs(ball.position.x - rod.position.x) / 1.25,
+        );
+        const kick = Math.pow(Math.max(0, Math.sin(t * 5.8 + i * 1.45)), 12);
+        rod.position.z = clamp(
+          Math.sin(t * 2.65 + i * 1.1) * 0.25 +
+            Math.sin(t * 4.7 + i * 0.56) * 0.08 +
+            clamp(ball.position.z * 0.12, -0.15, 0.15) * nearBall,
+          -0.48,
+          0.48,
+        );
+        rod.rotation.z = clamp(
+          Math.sin(t * (i % 2 ? 3.1 : 3.7) + i * 1.23) * 0.22 +
+            Math.sin(t * 8.6 + i * 0.85) *
+              (0.35 * kick + 0.48 * nearBall),
+          -1.05,
+          1.05,
+        );
       }
       if (playing) {
-        const progress = (t * 1.8) % points.length,
-          index = Math.floor(progress),
-          p = points[index],
-          q = points[(index + 1) % points.length],
-          f = progress - index;
-        ball.position.x = p[0] + (q[0] - p[0]) * f;
-        ball.position.z = p[1] + (q[1] - p[1]) * f;
-        ball.rotation.x = t * 8;
-        ball.rotation.z = t * 5;
         trails.forEach((m, i) => {
-          const lag = (i + 1) * 0.03;
-          m.position.set(
-            ball.position.x - (q[0] - p[0]) * lag,
-            0.16,
-            ball.position.z - (q[1] - p[1]) * lag,
-          );
+          if (!m.visible) m.position.copy(ball.position);
+          m.position.lerp(ball.position, 0.34 - i * 0.045);
+          m.scale.setScalar(1 - i * 0.13);
           m.visible = true;
         });
-        stage.rotation.y = Math.sin(t * 0.38) * 0.018;
+        stage.rotation.y = Math.sin(t * 0.55) * 0.025;
+        stage.position.x = Math.sin(t * 0.7) * 0.025;
+        camera.position.x = 0.15 + Math.sin(t * 0.38) * 0.1;
+        camera.lookAt(0, 0, 0);
+        rim.intensity = 20 + Math.sin(t * 2.1) * 3;
       } else {
         trails.forEach((m) => (m.visible = false));
         stage.rotation.y = 0;
+        stage.position.x = 0;
+        camera.position.x = 0.15;
+        camera.lookAt(0, 0, 0);
+        rim.intensity = 12;
       }
       const hit = Math.max(0, 1 - (time - flash.current) / 1200);
       spark.intensity = hit * 15;
-      stage.position.y = !reduced.matches ? Math.sin(hit * Math.PI) * 0.035 : 0;
+      stage.position.y = !reduced.matches
+        ? (playing ? Math.sin(t * 3.4) * 0.025 : 0) +
+          Math.sin(hit * Math.PI) * 0.035
+        : 0;
       renderer.render(scene, camera);
     };
     frame = requestAnimationFrame(animate);
