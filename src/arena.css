@@ -1532,6 +1532,45 @@
     0 3px 5px #0016338a;
   padding: 0.3vh 1vw;
 }
+.tournament-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  background: #000;
+}
+.tournament-transition-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.tournament-transition-skip {
+  position: absolute;
+  right: 2vw;
+  bottom: 2vh;
+  min-height: 3.6vh;
+  padding: 0.6vh 1vw;
+  border: 1px solid #ffffff88;
+  border-radius: 999px;
+  background: #00172dcc;
+  color: #fff;
+  font:
+    700 0.8vw "Barlow Condensed",
+    Arial,
+    sans-serif;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  opacity: 0.8;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+.tournament-transition-skip:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+}
 .footer-wordmark {
   display: none;
   font-size: 0.65vw;

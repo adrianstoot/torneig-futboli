@@ -111,6 +111,7 @@ export function BroadcastApp() {
   const [interaction, setInteraction] = useState("");
   const [artReady, setArtReady] = useState(false);
   const [focusMode, setFocusMode] = useState(false);
+  const [tournamentTransition, setTournamentTransition] = useState(false);
   const [clock, setClock] = useState(Date.now());
   const last = s.events.at(-1);
   const started = !["SETUP", "DRAW"].includes(s.phase);
@@ -223,7 +224,12 @@ export function BroadcastApp() {
   const guide = buildGuide(s, tied, roundDone);
   const guideAction = () => {
     if (s.phase === "SETUP") void run(() => commit(draw));
-    else if (s.phase === "DRAW") void run(() => commit(startGroups));
+    else if (s.phase === "DRAW")
+      void run(async () => {
+        await commit(startGroups);
+        setView("live");
+        setTournamentTransition(true);
+      });
     else if (s.phase === "GROUP_STAGE_COMPLETE" && tied) setPanel("ties");
     else if (s.phase === "CHAMPION") {
       setView("champion");
@@ -254,6 +260,12 @@ export function BroadcastApp() {
         return draw({ ...current, teams });
       }),
     );
+  const startTournamentWithTransition = () =>
+    run(async () => {
+      await commit(startGroups);
+      setView("live");
+      setTournamentTransition(true);
+    });
   return (
     <div
       className={`arena-app ${artReady ? "art-ready" : ""} ${started ? "tournament-started" : "pre-tournament"} ${focusMode ? "audience-focus" : ""} view-${view}`}
@@ -333,11 +345,7 @@ export function BroadcastApp() {
             <Registration s={s} run={run} onDraw={drawFromRegistration} />
           ) : (
             <div className="arena-draw">
-              <Draw
-                s={s}
-                run={run}
-                onStart={() => run(() => commit(startGroups))}
-              />
+              <Draw s={s} run={run} onStart={startTournamentWithTransition} />
               <button className="arena-link" onClick={() => setPanel("teams")}>
                 Editar parelles abans de començar
               </button>
@@ -458,6 +466,34 @@ export function BroadcastApp() {
             )}
         </div>
       </div>
+      <AnimatePresence>
+        {tournamentTransition && (
+          <motion.div
+            className="tournament-transition"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.35 }}
+            role="dialog"
+            aria-label="Comença el torneig"
+          >
+            <video
+              className="tournament-transition-video"
+              src={`${import.meta.env.BASE_URL}futbolin-transicion-inicio-torneo.mp4`}
+              autoPlay
+              playsInline
+              onEnded={() => setTournamentTransition(false)}
+              onError={() => setTournamentTransition(false)}
+            />
+            <button
+              className="tournament-transition-skip"
+              onClick={() => setTournamentTransition(false)}
+            >
+              OMITIR
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
       <footer className="arena-footer">
         <div className="footer-wordmark">
           JOC NET.<b>GRAN FALLA!</b>
