@@ -410,11 +410,20 @@ export function BroadcastApp() {
         </div>
         <div className="ticker-window" aria-label="Ròtul del torneig">
           <div className="ticker-track">
-            <span>APUNTA LES PARELLES DEL TORNEIG</span>
+            <span>
+              COMENÇA EL TORNEIG! PARELLES, ACOSTEU-VOS ALS FUTBOLINS… QUE
+              COMENCE EL JOC!
+            </span>
             <b>✦</b>
-            <span>APUNTA LES PARELLES DEL TORNEIG</span>
+            <span>
+              COMENÇA EL TORNEIG! PARELLES, ACOSTEU-VOS ALS FUTBOLINS… QUE
+              COMENCE EL JOC!
+            </span>
             <b>✦</b>
-            <span>APUNTA LES PARELLES DEL TORNEIG</span>
+            <span>
+              COMENÇA EL TORNEIG! PARELLES, ACOSTEU-VOS ALS FUTBOLINS… QUE
+              COMENCE EL JOC!
+            </span>
             <b>✦</b>
           </div>
         </div>
