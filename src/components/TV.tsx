@@ -4,7 +4,6 @@ import {
   Activity,
   BarChart3,
   CalendarDays,
-  Trophy,
   Radio,
   Users,
   ChevronRight,
@@ -282,66 +281,7 @@ function TeamLabel({ team }: { team?: Team }) {
 export const tvViews = [
   { id: "live", label: "En directe", icon: Activity },
   { id: "standings", label: "Classificació", icon: BarChart3 },
-  { id: "bracket", label: "Camí a la copa", icon: Trophy },
 ];
-export function Bracket({ s }: { s: State }) {
-  const phases: Match["phase"][] = [
-    "PRELIMINARY",
-    "ROUND_OF_16",
-    "QUARTER_FINALS",
-    "SEMI_FINALS",
-    "FINAL",
-  ];
-  return (
-    <div className="bracket">
-      {phases.map((p) => (
-        <section
-          className={`bracket-round ${s.phase === p ? "current" : ""}`}
-          key={p}
-        >
-          <div className="section-label">{phaseNames[p]}</div>
-          <div className="round-matches">
-            {s.matches
-              .filter((m) => m.phase === p)
-              .map((m) => (
-                <div
-                  className={`bracket-match ${m.status === "completed" ? "finished" : ""}`}
-                  key={m.id}
-                >
-                  {[m.a, m.b].map((id) => (
-                    <div key={id} className={m.winner === id ? "winner" : ""}>
-                      <small>{s.seeds.indexOf(id) + 1}</small>
-                      <b>{teamName(s, id)}</b>
-                      <strong>
-                        {m.status === "completed"
-                          ? m.games.filter((g) =>
-                              id === m.a ? g.a > g.b : g.b > g.a,
-                            ).length
-                          : "—"}
-                      </strong>
-                    </div>
-                  ))}
-                </div>
-              ))}
-            {!s.matches.some((m) => m.phase === p) && (
-              <div className="bracket-placeholder">
-                {s.phase === "SETUP" ? "El camí comença ací" : "Per decidir"}
-                <span>Millor seed vs pitjor seed</span>
-              </div>
-            )}
-          </div>
-        </section>
-      ))}
-      <section className="bracket-champion">
-        <TrophyArt />
-        <span>CAMPEONS</span>
-        <strong>
-          {s.champion ? teamName(s, s.champion) : "Qui alçarà la copa?"}
-        </strong>
-      </section>
-    </div>
-  );
-}
 export function Upcoming({ s }: { s: State }) {
   return (
     <div className="three-columns upcoming">
@@ -444,9 +384,14 @@ export function TV({ s }: { s: State }) {
   const previousView = useRef(s.settings.view);
   const path = location.pathname.split("/")[2];
   const [view, setView] = useState(
-    path === "classification"
+    path === "classification" || path === "bracket"
       ? "standings"
-      : path || (s.phase === "CHAMPION" ? "champion" : s.settings.view),
+      : path ||
+          (s.phase === "CHAMPION"
+            ? "champion"
+            : s.settings.view === "bracket"
+              ? "standings"
+              : s.settings.view),
   );
   const [now, setNow] = useState(Date.now());
   const [notice, setNotice] = useState<State["events"][number] | null>(null);
@@ -467,7 +412,7 @@ export function TV({ s }: { s: State }) {
       "DRAW",
     ].includes(s.phase)
       ? ["live", "standings", "upcoming"]
-      : ["live", "bracket", "qualified"];
+      : ["live", "standings", "qualified"];
     const timer = setInterval(
       () => setView((v) => views[(views.indexOf(v) + 1) % views.length]),
       s.settings.seconds * 1000,
@@ -547,7 +492,13 @@ export function TV({ s }: { s: State }) {
             ) : view === "champion" || view === "final" ? (
               <Celebration s={s} />
             ) : (
-              <Bracket s={s} />
+              <div className="three-columns">
+                {tables.map((table) => (
+                  <section key={table} className={`content-panel table-${table}`}>
+                    <Standings s={s} table={table} full />
+                  </section>
+                ))}
+              </div>
             )}
           </motion.div>
         )}

@@ -1,15 +1,14 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { BarChart3, ChevronRight, Crown, Trophy } from "lucide-react";
 import { qualifiers, queue, standings } from "../engine/tournament";
 import {
-  phaseNames,
   tables,
   type Match,
   type Phase,
   type State,
   type TableId,
 } from "../engine/types";
-import { Standings, TrophyArt, teamName } from "./TV";
+import { Standings, teamName } from "./TV";
 
 type Stage = "GROUP_STAGE" | "QUALIFIED" | Match["phase"] | "CHAMPION";
 const journey: { id: Stage; short: string }[] = [
@@ -22,27 +21,6 @@ const journey: { id: Stage; short: string }[] = [
   { id: "FINAL", short: "FINAL" },
   { id: "CHAMPION", short: "COPA" },
 ];
-const knockoutStages = journey.slice(2, 7).map((stage) => stage.id);
-
-function expectedMatches(stage: Stage, entrants: number) {
-  if (entrants < 2) return 0;
-  const bracket = 2 ** Math.floor(Math.log2(entrants));
-  if (stage === "PRELIMINARY") return entrants - bracket;
-  if (stage === "ROUND_OF_16") return bracket >= 16 ? 8 : 0;
-  if (stage === "QUARTER_FINALS") return bracket >= 8 ? 4 : 0;
-  if (stage === "SEMI_FINALS") return bracket >= 4 ? 2 : 0;
-  if (stage === "FINAL") return 1;
-  return 0;
-}
-
-function progressLabel(position: number, active: number) {
-  return position < active
-    ? "FASE SUPERADA"
-    : position === active
-      ? "ESTEM ACÍ"
-      : "PER VINDRE";
-}
-
 function currentStage(phase: Phase): Stage {
   if (["SETUP", "DRAW", "GROUP_STAGE", "GROUP_STAGE_COMPLETE"].includes(phase))
     return "GROUP_STAGE";
@@ -248,193 +226,6 @@ export function PhaseClassification({ s }: { s: State }) {
           · Els creuaments es fan entre els primers i els últims classificats.
         </div>
       )}
-    </div>
-  );
-}
-
-export function CupJourney({ s }: { s: State }) {
-  const laneRef = useRef<HTMLDivElement>(null);
-  const activeIndex = stageIndex(s.phase);
-  const entrants =
-    s.seeds.length ||
-    tables.reduce(
-      (total, table) =>
-        total +
-        Math.min(6, s.teams.filter((team) => team.group === table).length),
-      0,
-    );
-  useEffect(() => {
-    const lane = laneRef.current;
-    const column = lane?.children.item(activeIndex) as HTMLElement | null;
-    if (lane && column)
-      lane.scrollTo({
-        left: Math.max(
-          0,
-          column.offsetLeft - lane.offsetLeft - lane.clientWidth / 3,
-        ),
-        behavior: "smooth",
-      });
-  }, [activeIndex]);
-  return (
-    <div className="cup-journey">
-      <div className="cup-heading">
-        <div>
-          <span>DELS TRES FUTBOLINS A LA FINAL</span>
-          <h2>
-            CAMÍ A LA COPA <Trophy />
-          </h2>
-        </div>
-        <strong>ARA: {phaseNames[s.phase].toUpperCase()}</strong>
-      </div>
-      <div className="cup-timeline" aria-label="Progrés del torneig">
-        {journey.map((stage, index) => (
-          <button
-            key={stage.id}
-            className={`${index < activeIndex ? "passed" : ""} ${index === activeIndex ? "current" : ""}`}
-            onClick={() => {
-              const lane = laneRef.current;
-              const column = lane?.children.item(index) as HTMLElement | null;
-              if (lane && column)
-                lane.scrollTo({
-                  left: Math.max(
-                    0,
-                    column.offsetLeft - lane.offsetLeft - lane.clientWidth / 3,
-                  ),
-                  behavior: "smooth",
-                });
-            }}
-          >
-            <span>
-              {index < activeIndex ? "✓" : String(index + 1).padStart(2, "0")}
-            </span>
-            <b>{stage.short}</b>
-          </button>
-        ))}
-      </div>
-      <div className="cup-lane" ref={laneRef}>
-        <section
-          className={`cup-column cup-groups ${activeIndex === 0 ? "current" : "passed"}`}
-        >
-          <header>
-            <span>01</span>
-            <b>PARELLES PER FUTBOLÍ</b>
-            <small>{progressLabel(0, activeIndex)}</small>
-          </header>
-          <div className="cup-column-content">
-            {tables.map((table) => (
-              <div className={`cup-group table-${table}`} key={table}>
-                <h3>
-                  FUTBOLÍ {table}{" "}
-                  <small>
-                    {s.teams.filter((team) => team.group === table).length}{" "}
-                    PARELLES
-                  </small>
-                </h3>
-                <div>
-                  {s.teams
-                    .filter((team) => team.group === table)
-                    .map((team) => (
-                      <span key={team.id}>{team.name}</span>
-                    ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-        <section
-          className={`cup-column cup-qualified ${activeIndex === 1 ? "current" : activeIndex > 1 ? "passed" : ""}`}
-        >
-          <header>
-            <span>02</span>
-            <b>6 CLASSIFICATS PER GRUP</b>
-            <small>{progressLabel(1, activeIndex)}</small>
-          </header>
-          <div className="cup-column-content">
-            {tables.map((table) => {
-              const ids = s.seeds.length
-                ? s.seeds.filter(
-                    (id) =>
-                      s.teams.find((team) => team.id === id)?.group === table,
-                  )
-                : standings(s, table)
-                    .slice(0, 6)
-                    .map((row) => row.id);
-              return (
-                <div className={`cup-group table-${table}`} key={table}>
-                  <h3>
-                    FUTBOLÍ {table}{" "}
-                    <small>
-                      {s.seeds.length ? "CONFIRMATS" : "PROVISIONALS"}
-                    </small>
-                  </h3>
-                  <div>
-                    {ids.map((id, index) => (
-                      <span key={id}>
-                        <i>{index + 1}</i>
-                        {teamName(s, id)}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </section>
-        {knockoutStages.map((stage, index) => {
-          const matches = s.matches.filter((match) => match.phase === stage);
-          const stagePosition = index + 2;
-          return (
-            <section
-              className={`cup-column cup-round ${activeIndex === stagePosition ? "current" : ""} ${activeIndex > stagePosition ? "passed" : ""}`}
-              key={stage}
-            >
-              <header>
-                <span>{String(stagePosition + 1).padStart(2, "0")}</span>
-                <b>{phaseNames[stage].toUpperCase()}</b>
-                <small>{progressLabel(stagePosition, activeIndex)}</small>
-              </header>
-              <div className="cup-column-content">
-                {matches.map((match) => (
-                  <MatchCard key={match.id} s={s} match={match} />
-                ))}
-                {!matches.length &&
-                  (expectedMatches(stage, entrants) ? (
-                    Array.from(
-                      { length: expectedMatches(stage, entrants) },
-                      (_, slot) => (
-                        <div className="cup-future-match" key={slot}>
-                          <span>
-                            CREUAMENT {String(slot + 1).padStart(2, "0")}
-                          </span>
-                          <b>Parella pendent</b>
-                          <b>Parella pendent</b>
-                        </div>
-                      ),
-                    )
-                  ) : (
-                    <div className="cup-placeholder">Ronda no necessària</div>
-                  ))}
-              </div>
-            </section>
-          );
-        })}
-        <section
-          className={`cup-column cup-winner ${s.champion ? "current" : ""}`}
-        >
-          <header>
-            <span>08</span>
-            <b>LA COPA</b>
-            <small>{progressLabel(7, activeIndex)}</small>
-          </header>
-          <div className="cup-winner-content">
-            <TrophyArt />
-            <span>CAMPEONS</span>
-            <strong>
-              {s.champion ? teamName(s, s.champion) : "QUI ALÇARÀ LA COPA?"}
-            </strong>
-          </div>
-        </section>
-      </div>
     </div>
   );
 }

@@ -69,7 +69,6 @@ import { Table3D } from "./Table3D";
 import { MascotActor } from "./MascotActor";
 import { Standings, TrophyArt, teamName } from "./TV";
 import { MatchCard } from "./TournamentViews";
-import { WorldCupBracket } from "./WorldCupBracket";
 import {
   Dialog,
   Draw,
@@ -79,13 +78,12 @@ import {
   TieResolver,
 } from "./Admin";
 
-type View = "live" | "standings" | "bracket" | "final" | "champion";
+type View = "live" | "standings" | "final" | "champion";
 type Panel = "teams" | "settings" | "results" | "ties" | null;
 type Transition = "opening" | "qualification" | null;
 const views = [
   { id: "live", label: "Seguiment en directe", Icon: Radio },
   { id: "standings", label: "Classificació", Icon: BarChart3 },
-  { id: "bracket", label: "Camí a la copa", Icon: Trophy },
 ] as const;
 
 export function BroadcastApp() {
@@ -163,7 +161,7 @@ export function BroadcastApp() {
   }, [last?.id]);
   useEffect(() => {
     if (!s.settings.auto || !started || s.phase === "CHAMPION" || panel) return;
-    const pages: View[] = ["live", "standings", "bracket"];
+    const pages: View[] = ["live", "standings"];
     const timer = setInterval(() => {
       if (document.activeElement?.matches("input,textarea")) return;
       setView((v) => pages[(pages.indexOf(v) + 1) % pages.length]);
@@ -172,10 +170,12 @@ export function BroadcastApp() {
   }, [s.settings.auto, s.settings.seconds, s.phase, panel, started]);
   useEffect(() => {
     const v =
-      s.settings.view === "upcoming" || s.settings.view === "qualified"
+      s.settings.view === "upcoming" ||
+      s.settings.view === "qualified" ||
+      s.settings.view === "bracket"
         ? "standings"
         : (s.settings.view as View);
-    if (["live", "standings", "bracket", "final", "champion"].includes(v))
+    if (["live", "standings", "final", "champion"].includes(v))
       setView(v);
   }, [s.settings.view]);
   useEffect(() => {
@@ -185,7 +185,8 @@ export function BroadcastApp() {
       audio.pause();
       return;
     }
-    audio.volume = 0.55;
+    // Keep the soundtrack under the interface clicks and referee whistle.
+    audio.volume = 0.24;
     void audio.play().catch(() => undefined);
   }, [musicEnabled, musicStarted, tournamentTransition]);
   const changeView = (v: View) => {
@@ -443,35 +444,33 @@ export function BroadcastApp() {
         </main>
       ) : (
         <main
-          className={`arena-tournament ${view === "bracket" ? "cup-screen" : ""}`}
+          className="arena-tournament"
         >
-          {view !== "bracket" && (
-            <div
-              className={`arena-tables ${["final", "champion"].includes(view) ? "short-tables" : ""}`}
-            >
-              {tables.map((table) => (
-                <LiveBoard
-                  key={table}
-                  s={s}
-                  table={table}
-                  view={view}
-                  controls={!focusMode}
-                  onInteraction={setInteraction}
-                  onSave={async (match, games) => {
-                    await commit((x) => {
-                      if (queue(x, table)[0]?.id !== match.id)
-                        throw Error(
-                          "Este partit ja ha canviat. Revisa el nou enfrontament.",
-                        );
-                      return saveResult(x, match.id, games);
-                    });
-                    setInteraction("");
-                  }}
-                />
-              ))}
-            </div>
-          )}
-          {["bracket", "final", "champion"].includes(view) && (
+          <div
+            className={`arena-tables ${["final", "champion"].includes(view) ? "short-tables" : ""}`}
+          >
+            {tables.map((table) => (
+              <LiveBoard
+                key={table}
+                s={s}
+                table={table}
+                view={view}
+                controls={!focusMode}
+                onInteraction={setInteraction}
+                onSave={async (match, games) => {
+                  await commit((x) => {
+                    if (queue(x, table)[0]?.id !== match.id)
+                      throw Error(
+                        "Este partit ja ha canviat. Revisa el nou enfrontament.",
+                      );
+                    return saveResult(x, match.id, games);
+                  });
+                  setInteraction("");
+                }}
+              />
+            ))}
+          </div>
+          {["final", "champion"].includes(view) && (
             <div className="arena-stage-detail">
               <AnimatePresence mode="wait">
                 <motion.div
@@ -482,9 +481,7 @@ export function BroadcastApp() {
                   exit={{ opacity: 0, y: -15 }}
                   transition={{ duration: 0.38 }}
                 >
-                  {view === "bracket" ? (
-                    <WorldCupBracket state={s} />
-                  ) : view === "final" ? (
+                  {view === "final" ? (
                     <FinalScene s={s} />
                   ) : (
                     <Champion s={s} />
@@ -1158,7 +1155,7 @@ function LiveBoard({
   const lastMatch = s.matches
     .filter((m) => m.table === table && m.status === "completed")
     .at(-1);
-  const bigDetail = ["bracket", "final", "champion"].includes(view);
+  const bigDetail = ["final", "champion"].includes(view);
   return (
     <section
       className={`arena-board table-${table} ${bigDetail ? "board-compact" : ""} ${celebrating ? "board-celebrating" : ""} ${inactive ? "board-inactive" : ""}`}
@@ -1182,7 +1179,6 @@ function LiveBoard({
       </div>
       <div className="board-score-strip">
         <div className="score-team">
-          <span>{match ? "ARA JUGUEN" : "FUTBOLÍ DISPONIBLE"}</span>
           <AnimatePresence mode="wait">
             <motion.strong
               key={match?.a || "a"}
@@ -1190,10 +1186,9 @@ function LiveBoard({
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0 }}
             >
-              {match ? teamName(s, match.a) : "En espera"}
+              {match ? teamName(s, match.a) : "—"}
             </motion.strong>
           </AnimatePresence>
-          <small>{match ? "PARELLA EN JOC" : "Bona partida!"}</small>
         </div>
         <div
           className="board-points"
@@ -1208,7 +1203,6 @@ function LiveBoard({
           <b>{pointsA !== null ? gameCount - pointsA : "–"}</b>
         </div>
         <div className="score-team">
-          <span>{completeFirst ? "EN EDICIÓ" : "ENFRONTAMENT"}</span>
           <AnimatePresence mode="wait">
             <motion.strong
               key={match?.b || "b"}
@@ -1216,10 +1210,9 @@ function LiveBoard({
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0 }}
             >
-              {match ? teamName(s, match.b) : "Sense partit"}
+              {match ? teamName(s, match.b) : "—"}
             </motion.strong>
           </AnimatePresence>
-          <small>{match ? "PARELLA ENFRONTADA" : "Tota la falla juga"}</small>
         </div>
       </div>
       <form className="board-match-zone" onSubmit={submit}>

@@ -40,8 +40,8 @@ export function playButtonAudio() {
   const context = getAudioContext();
   if (!context) return;
   const now = context.currentTime + 0.004;
-  tone(context, now, 0.075, 610, 475, 0.035, "triangle");
-  tone(context, now + 0.025, 0.07, 950, 700, 0.016, "sine");
+  tone(context, now, 0.075, 610, 475, 0.12, "triangle");
+  tone(context, now + 0.025, 0.07, 950, 700, 0.06, "sine");
 }
 
 /** The result event gets one short referee-style whistle, generated offline. */
@@ -49,8 +49,8 @@ export function playResultWhistle() {
   const context = getAudioContext();
   if (!context) return;
   const now = context.currentTime + 0.008;
-  tone(context, now, 0.22, 1260, 1740, 0.085, "sine");
-  tone(context, now + 0.015, 0.195, 1510, 2050, 0.025, "sine");
+  tone(context, now, 0.22, 1260, 1740, 0.3, "sine");
+  tone(context, now + 0.015, 0.195, 1510, 2050, 0.11, "sine");
 }
 
 function playAnnouncement(kind: "phase" | "info" | "champion") {

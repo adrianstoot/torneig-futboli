@@ -4,7 +4,7 @@ import { validateState } from "./engine/tournament";
 const KEY = "futboli-2027-v1",
   UNDO = KEY + "-undo",
   BACKUP = KEY + "-backup",
-  SOUND_UPGRADE = KEY + "-all-buttons-audio-v1";
+  SOUND_UPGRADE = KEY + "-all-buttons-audio-v2";
 const listeners = new Set<() => void>();
 export let recoveryError = "";
 function read(): State {

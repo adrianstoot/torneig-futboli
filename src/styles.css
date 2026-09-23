@@ -952,27 +952,6 @@ svg {
 .upcoming-row small {
   color: #6e92b2;
 }
-.bracket {
-  display: flex;
-  gap: 1.2vw;
-  height: 100%;
-  padding: 0.8vh 0;
-}
-.bracket-round {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-}
-.bracket-round .section-label {
-  justify-content: center;
-  border-bottom: 1px solid #4283a449;
-  margin-bottom: 0.8vh;
-  font-size: 0.72vw;
-}
-.bracket-round.current .section-label {
-  color: var(--yellow);
-}
 .round-matches {
   flex: 1;
   display: flex;
@@ -981,81 +960,10 @@ svg {
   gap: 0.6vh;
   min-height: 0;
 }
-.bracket-match {
-  background: #071a30;
-  border: 1px solid #47789a5c;
-  border-radius: 4px;
-  position: relative;
-  font-size: 0.7vw;
-}
-.bracket-match:after {
-  content: "";
-  width: 1.2vw;
-  height: 1px;
-  background: #387599;
-  position: absolute;
-  right: -1.2vw;
-  top: 50%;
-}
-.bracket-match > div {
-  display: flex;
-  align-items: center;
-  gap: 0.3vw;
-  padding: 0.35vh 0.4vw;
-  min-height: 1.7vh;
-}
-.bracket-match > div + div {
-  border-top: 1px solid #4d7e9b25;
-}
-.bracket-match b {
-  flex: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-weight: 600;
-}
-.bracket-match small {
-  color: #708da6;
-  font-size: 0.8em;
-}
-.bracket-match .winner {
-  background: #ffe23b16;
-  color: #ffe23b;
-}
-.bracket-placeholder {
-  padding: 2vh 0.5vw;
-  border: 1px dashed #3d668745;
-  color: #789cb8;
-  text-align: center;
-  font-size: 0.8vw;
-}
-.bracket-placeholder span {
-  display: block;
-  font-size: 0.65vw;
-  margin-top: 1vh;
-}
-.bracket-champion {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  flex: 0.8;
-  text-align: center;
-  gap: 1vh;
-}
 .trophy-art {
   width: 8vw;
   max-height: 100%;
   filter: drop-shadow(0 0 20px #ffda2928);
-}
-.bracket-champion span {
-  color: #ffd839;
-  font-size: 0.7vw;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-}
-.bracket-champion strong {
-  font-size: 0.95vw;
 }
 .qualified-scene {
   display: flex;
@@ -2255,49 +2163,6 @@ textarea {
 .admin-qualified .seed small {
   font-size: 10px;
 }
-.admin-bracket {
-  height: 510px;
-  border: 1px solid #2c4b63;
-  border-radius: 7px;
-  background: #031629;
-  padding: 16px;
-  overflow: auto;
-  margin-bottom: 22px;
-}
-.admin-bracket .bracket {
-  min-width: 780px;
-  gap: 18px;
-}
-.admin-bracket .bracket-round .section-label {
-  font-size: 10px;
-}
-.admin-bracket .bracket-match {
-  font-size: 11px;
-}
-.admin-bracket .bracket-match > div {
-  min-height: 24px;
-  padding: 4px;
-}
-.admin-bracket .bracket-match:after {
-  width: 18px;
-  right: -18px;
-}
-.admin-bracket .bracket-placeholder {
-  font-size: 11px;
-  padding: 15px 6px;
-}
-.admin-bracket .bracket-placeholder span {
-  font-size: 9px;
-}
-.admin-bracket .bracket-champion span {
-  font-size: 10px;
-}
-.admin-bracket .bracket-champion strong {
-  font-size: 12px;
-}
-.admin-bracket .trophy-art {
-  width: 80px;
-}
 .settings-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -2622,9 +2487,6 @@ input[type="checkbox"]:checked:after {
   );
   animation: lightSweep 4s infinite;
   pointer-events: none;
-}
-.bracket-match.finished {
-  animation: winGlow 1.2s ease-out;
 }
 .tv-screen .match-foot b {
   font-size: clamp(12px, 0.82vw, 28px);

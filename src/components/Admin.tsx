@@ -62,7 +62,6 @@ import {
   undo,
 } from "../store";
 import {
-  Bracket,
   Header,
   Qualified,
   Standings,
@@ -78,7 +77,6 @@ const tabs = [
   ["groups", "Grups", ClipboardList],
   ["results", "Resultats", History],
   ["qualification", "Classificats", Flag],
-  ["bracket", "Eliminatòries", Trophy],
   ["settings", "Ajustos", Settings],
 ] as const;
 export function Dialog({
@@ -394,44 +392,6 @@ export function Admin({ s }: { s: State }) {
                 <Qualified s={s} />
               </div>
               <TieResolver s={s} run={run} />
-            </>
-          ) : tab === "bracket" ? (
-            <>
-              <PageHeading
-                eyebrow="MILLORS CONTRA PITJORS"
-                title="Quadre del torneig"
-                detail="En cada ronda es reordenen els supervivents pel seed original. Els cruces futurs es decideixen en acabar la ronda."
-              />
-              <div className="admin-bracket">
-                <Bracket s={s} />
-              </div>
-              {s.champion && (
-                <button
-                  className="button yellow"
-                  onClick={() =>
-                    run(() =>
-                      commit((x) =>
-                        event(
-                          {
-                            ...x,
-                            settings: {
-                              ...x.settings,
-                              view: "champion",
-                              auto: false,
-                            },
-                          },
-                          "champion",
-                          "CAMPEONS!",
-                          teamName(x, x.champion!),
-                          [x.champion!],
-                        ),
-                      ),
-                    )
-                  }
-                >
-                  MOSTRAR CAMPIONS EN TV
-                </button>
-              )}
             </>
           ) : (
             <SettingsPanel
@@ -1258,7 +1218,7 @@ export function SettingsPanel({
             Fixar una vista
             <select
               value={
-                ["upcoming", "qualified"].includes(s.settings.view)
+                ["upcoming", "qualified", "bracket"].includes(s.settings.view)
                   ? "standings"
                   : s.settings.view
               }
@@ -1288,7 +1248,7 @@ export function SettingsPanel({
           </label>
           <label className="toggle-label">
             <span>
-              <Volume2 size={17} /> So dels anuncis
+              <Volume2 size={17} /> So de botons i resultats
             </span>
             <input
               type="checkbox"
@@ -1297,8 +1257,8 @@ export function SettingsPanel({
             />
           </label>
           <p className="hint">
-            Per activar l’àudio, fes un clic a la pantalla. Els sons es generen
-            localment, sense vídeos.
+            Efecte curt en cada botó actiu i xiulit en guardar resultats. El
+            volum dels efectes queda per damunt de la música.
           </p>
           <button
             className="button subtle"
