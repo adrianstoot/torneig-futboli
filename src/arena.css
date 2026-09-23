@@ -450,10 +450,10 @@
 }
 .registration-side > .mascot-actor {
   position: absolute;
-  top: -1.5vh;
-  height: 35vh;
-  width: 26.25vh;
-  left: 2vw;
+  top: 0;
+  height: 33vh;
+  width: 24.75vh;
+  left: 1vw;
   z-index: 2;
 }
 .welcome-bubble {
@@ -474,10 +474,10 @@
 }
 .registration-side-mascot {
   position: absolute;
-  right: 5%;
-  bottom: 8vh;
-  width: 21vh;
-  height: 29vh;
+  right: 1%;
+  bottom: 10vh;
+  width: 24.75vh;
+  height: 33vh;
   z-index: 2;
   animation: mascotSideFloat 3.8s ease-in-out infinite;
   pointer-events: none;
