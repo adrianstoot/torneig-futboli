@@ -16,6 +16,7 @@ import {
   FlaskConical,
   History,
   Maximize,
+  Music2,
   Pause,
   Play,
   Plus,
@@ -112,6 +113,11 @@ export function BroadcastApp() {
   const [artReady, setArtReady] = useState(false);
   const [focusMode, setFocusMode] = useState(false);
   const [tournamentTransition, setTournamentTransition] = useState(false);
+  const [musicEnabled, setMusicEnabled] = useState(
+    () => localStorage.getItem("futboli-background-music") !== "off",
+  );
+  const [musicStarted, setMusicStarted] = useState(false);
+  const musicRef = useRef<HTMLAudioElement>(null);
   const [clock, setClock] = useState(Date.now());
   const last = s.events.at(-1);
   const started = !["SETUP", "DRAW"].includes(s.phase);
@@ -189,6 +195,16 @@ export function BroadcastApp() {
     )
       setView(v);
   }, [s.settings.view]);
+  useEffect(() => {
+    const audio = musicRef.current;
+    if (!audio || !musicStarted) return;
+    if (!musicEnabled) {
+      audio.pause();
+      return;
+    }
+    audio.volume = 0.55;
+    void audio.play().catch(() => undefined);
+  }, [musicEnabled, musicStarted]);
   const changeView = (v: View) => {
     setView(v);
     void run(() =>
@@ -308,6 +324,28 @@ export function BroadcastApp() {
             }
           >
             {s.settings.sound ? <Volume2 /> : <VolumeX />}
+          </button>
+          <button
+            title={
+              musicEnabled
+                ? "Desactivar música de fondo"
+                : "Activar música de fondo"
+            }
+            aria-label={
+              musicEnabled
+                ? "Desactivar música de fondo"
+                : "Activar música de fondo"
+            }
+            onClick={() => {
+              const next = !musicEnabled;
+              setMusicEnabled(next);
+              localStorage.setItem(
+                "futboli-background-music",
+                next ? "on" : "off",
+              );
+            }}
+          >
+            <Music2 className={musicEnabled ? "music-active" : "music-muted"} />
           </button>
           <button
             title="Eines i còpies"
@@ -476,18 +514,34 @@ export function BroadcastApp() {
               src={`${import.meta.env.BASE_URL}futbolin-transicion-inicio-torneo.mp4`}
               autoPlay
               playsInline
-              onEnded={() => setTournamentTransition(false)}
-              onError={() => setTournamentTransition(false)}
+              onEnded={() => {
+                setTournamentTransition(false);
+                setMusicStarted(true);
+              }}
+              onError={() => {
+                setTournamentTransition(false);
+                setMusicStarted(true);
+              }}
             />
             <button
               className="tournament-transition-skip"
-              onClick={() => setTournamentTransition(false)}
+              onClick={() => {
+                setTournamentTransition(false);
+                setMusicStarted(true);
+              }}
             >
               OMITIR
             </button>
           </motion.div>
         )}
       </AnimatePresence>
+      <audio
+        ref={musicRef}
+        src={`${import.meta.env.BASE_URL}musica-fondo-app-tv.wav`}
+        loop
+        preload="auto"
+        aria-hidden="true"
+      />
       <footer className="arena-footer">
         <div className="footer-wordmark">
           JOC NET.<b>GRAN FALLA!</b>

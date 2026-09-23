@@ -185,6 +185,14 @@
   width: 1.3vw;
   height: 1.3vw;
 }
+.arena-tools .music-active {
+  color: #ffe531;
+  filter: drop-shadow(0 0 5px #ffe53188);
+}
+.arena-tools .music-muted {
+  color: #89a8c2;
+  opacity: 0.72;
+}
 .arena-tools button.practice-tag {
   background: #ffe43f;
   color: #061b41;
