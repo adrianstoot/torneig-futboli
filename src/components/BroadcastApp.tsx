@@ -259,6 +259,24 @@ export function BroadcastApp() {
       );
     } else advancePhase();
   };
+  const drawFromRegistration = () =>
+    run(() =>
+      commit((current) => {
+        if (current.teams.length > 0) return draw(current);
+        const teams = Array.from({ length: 30 }, (_, i) => {
+          const name = `Parella ${String(i + 1).padStart(2, "0")}`;
+          return {
+            id: uid(),
+            name,
+            player1: name,
+            player2: name,
+            shortName: "",
+            group: null,
+          };
+        });
+        return draw({ ...current, teams });
+      }),
+    );
   return (
     <div
       className={`arena-app ${artReady ? "art-ready" : ""} ${started ? "tournament-started" : "pre-tournament"} ${focusMode ? "audience-focus" : ""} view-${view}`}
@@ -356,12 +374,7 @@ export function BroadcastApp() {
       {!started ? (
         <main className="arena-onboarding">
           {s.phase === "SETUP" ? (
-            <Registration
-              s={s}
-              run={run}
-              onPractice={practice}
-              onDraw={() => run(() => commit(draw))}
-            />
+            <Registration s={s} run={run} onDraw={drawFromRegistration} />
           ) : (
             <div className="arena-draw">
               <Draw
@@ -450,7 +463,7 @@ export function BroadcastApp() {
           </div>
         </div>
         <div className="guide-actions">
-          {guide.action && (
+          {guide.action && (s.phase as string) !== "SETUP" && (
             <button
               className="arena-primary"
               disabled={busy || (s.phase === "SETUP" && s.teams.length < 6)}
@@ -562,7 +575,6 @@ export function BroadcastApp() {
               <Registration
                 s={s}
                 run={run}
-                onPractice={practice}
                 onDraw={() =>
                   run(async () => {
                     await commit(draw);
@@ -705,12 +717,10 @@ function buildGuide(s: State, tied: boolean, roundDone: boolean) {
 function Registration({
   s,
   run,
-  onPractice,
   onDraw,
 }: {
   s: State;
   run: (fn: () => void | Promise<unknown>) => Promise<void>;
-  onPractice: () => void;
   onDraw: () => void;
 }) {
   const [name, setName] = useState(""),
@@ -875,24 +885,10 @@ function Registration({
           <strong>HOLA, EQUIP!</strong>
           <p>Ho tenim tot a punt per a una gran partida.</p>
         </div>
-        <div className="practice-card">
-          <span>VOLS VEURE COM FUNCIONA?</span>
-          <h3>PROVA EL TORNEIG</h3>
-          <p>
-            Creem 30 parelles, fem el sorteig i posem els 3 futbolins en joc. Tu
-            introduïxes els resultats ací mateix.
-          </p>
-          <button className="arena-primary" onClick={onPractice}>
-            <FlaskConical />
-            PROVAR AMB 30 PARELLES
-          </button>
-          <small>Les dades reals es guarden a banda.</small>
+        <div className="registration-side-mascot" aria-hidden="true">
+          <MascotActor mood="celebrate" />
         </div>
-        <button
-          className="arena-start"
-          disabled={s.teams.length < 6 || locked}
-          onClick={onDraw}
-        >
+        <button className="arena-start" disabled={locked} onClick={onDraw}>
           <Shuffle />
           REALITZAR SORTEIG
           <ChevronRight />
