@@ -3880,197 +3880,198 @@
     padding: 0;
     transform-origin: top left;
     transform: rotate(90deg) translateY(-100%);
-    --arena-vw-4_7: min(4.7vh, 8.355556vw);
-    --arena-vh-1_5: min(1.5vw, 0.84375vh);
-    --arena-vh-40: min(40vw, 22.5vh);
-    --arena-vw-20: min(20vh, 35.555556vw);
-    --arena-vh-22: min(22vw, 12.375vh);
-    --arena-vw-6: min(6vh, 10.666667vw);
-    --arena-vh-2: min(2vw, 1.125vh);
-    --arena-vw-2: min(2vh, 3.555556vw);
-    --arena-vw-0_7: min(0.7vh, 1.244444vw);
-    --arena-vh-1_7: min(1.7vw, 0.95625vh);
-    --arena-vw-1_05: min(1.05vh, 1.866667vw);
-    --arena-vw-0_4: min(0.4vh, 0.711111vw);
-    --arena-vh-0_5: min(0.5vw, 0.28125vh);
-    --arena-vw-0_9: min(0.9vh, 1.6vw);
-    --arena-vh-4_25: min(4.25vw, 2.390625vh);
-    --arena-vw-1: min(1vh, 1.777778vw);
-    --arena-vw-0_8: min(0.8vh, 1.422222vw);
-    --arena-vh-1_25: min(1.25vw, 0.703125vh);
-    --arena-vw-1_35: min(1.35vh, 2.4vw);
-    --arena-vw-1_02: min(1.02vh, 1.813333vw);
-    --arena-vw-0_35: min(0.35vh, 0.622222vw);
-    --arena-vw-1_2: min(1.2vh, 2.133333vw);
-    --arena-vw-1_5: min(1.5vh, 2.666667vw);
-    --arena-vw-0_3: min(0.3vh, 0.533333vw);
-    --arena-vh-0_4: min(0.4vw, 0.225vh);
-    --arena-vw-0_82: min(0.82vh, 1.457778vw);
-    --arena-vw-1_3: min(1.3vh, 2.311111vw);
-    --arena-vh-0_35: min(0.35vw, 0.196875vh);
-    --arena-vw-0_65: min(0.65vh, 1.155556vw);
-    --arena-vw-0_5: min(0.5vh, 0.888889vw);
-    --arena-vh-0_65: min(0.65vw, 0.365625vh);
-    --arena-vh-3_2: min(3.2vw, 1.8vh);
-    --arena-vw-3: min(3vh, 5.333333vw);
-    --arena-vh-1_8: min(1.8vw, 1.0125vh);
-    --arena-vw-1_6: min(1.6vh, 2.844444vw);
-    --arena-vw-0_72: min(0.72vh, 1.28vw);
-    --arena-vw-3_5: min(3.5vh, 6.222222vw);
-    --arena-vh-0_3: min(0.3vw, 0.16875vh);
-    --arena-vh-0_6: min(0.6vw, 0.3375vh);
-    --arena-vh-1_2: min(1.2vw, 0.675vh);
-    --arena-vh-0_85: min(0.85vw, 0.478125vh);
-    --arena-vw-0_75: min(0.75vh, 1.333333vw);
-    --arena-vh-3_3: min(3.3vw, 1.85625vh);
-    --arena-vh-0_8: min(0.8vw, 0.45vh);
-    --arena-vh-0_2: min(0.2vw, 0.1125vh);
-    --arena-vh-0_45: min(0.45vw, 0.253125vh);
-    --arena-vw-0_6: min(0.6vh, 1.066667vw);
-    --arena-vh-4: min(4vw, 2.25vh);
-    --arena-vw-1_15: min(1.15vh, 2.044444vw);
-    --arena-vh-9: min(9vw, 5.0625vh);
-    --arena-vw-1_1: min(1.1vh, 1.955556vw);
-    --arena-vh-1: min(1vw, 0.5625vh);
-    --arena-vh-33: min(33vw, 18.5625vh);
-    --arena-vh-24_75: min(24.75vw, 13.921875vh);
-    --arena-vw-13: min(13vh, 23.111111vw);
-    --arena-vh-10: min(10vw, 5.625vh);
-    --arena-vh-n1_2: min(-1.2vw, -0.675vh);
-    --arena-vw-n1: min(-1vh, -1.777778vw);
-    --arena-vh-27: min(27vw, 15.1875vh);
-    --arena-vh-1_3: min(1.3vw, 0.73125vh);
-    --arena-vw-1_65: min(1.65vh, 2.933333vw);
-    --arena-vw-0_98: min(0.98vh, 1.742222vw);
-    --arena-vh-3_8: min(3.8vw, 2.1375vh);
-    --arena-vh-4_5: min(4.5vw, 2.53125vh);
-    --arena-vw-0_85: min(0.85vh, 1.511111vw);
-    --arena-vh-5_6: min(5.6vw, 3.15vh);
-    --arena-vw-3_1: min(3.1vh, 5.511111vw);
-    --arena-vw-2_9: min(2.9vh, 5.155556vw);
-    --arena-vw-0_2: min(0.2vh, 0.355556vw);
-    --arena-vh-n0_15: min(-0.15vw, -0.084375vh);
-    --arena-vw-0_25: min(0.25vh, 0.444444vw);
-    --arena-vh-7_4: min(7.4vw, 4.1625vh);
-    --arena-vw-0_83: min(0.83vh, 1.475556vw);
-    --arena-vh-0_55: min(0.55vw, 0.309375vh);
-    --arena-vw-0_55: min(0.55vh, 0.977778vw);
-    --arena-vw-0_48: min(0.48vh, 0.853333vw);
-    --arena-vh-6_4: min(6.4vw, 3.6vh);
-    --arena-vw-0_45: min(0.45vh, 0.8vw);
-    --arena-vh-0_1: min(0.1vw, 0.05625vh);
-    --arena-vw-1_4: min(1.4vh, 2.488889vw);
-    --arena-vh-0_25: min(0.25vw, 0.140625vh);
-    --arena-vw-0_23: min(0.23vh, 0.408889vw);
-    --arena-vw-2_35: min(2.35vh, 4.177778vw);
-    --arena-vw-2_3: min(2.3vh, 4.088889vw);
-    --arena-vh-13_9: min(13.9vw, 7.81875vh);
-    --arena-vw-0_32: min(0.32vh, 0.568889vw);
-    --arena-vw-2_15: min(2.15vh, 3.822222vw);
-    --arena-vh-2_85: min(2.85vw, 1.603125vh);
-    --arena-vh-0_36: min(0.36vw, 0.2025vh);
-    --arena-vh-2_25: min(2.25vw, 1.265625vh);
-    --arena-vh-n0_5: min(-0.5vw, -0.28125vh);
-    --arena-vh-2_8: min(2.8vw, 1.575vh);
-    --arena-vw-0_95: min(0.95vh, 1.688889vw);
-    --arena-vw-0_87: min(0.87vh, 1.546667vw);
-    --arena-vh-2_1: min(2.1vw, 1.18125vh);
-    --arena-vw-1_25: min(1.25vh, 2.222222vw);
-    --arena-vw-1_45: min(1.45vh, 2.577778vw);
-    --arena-vw-0_22: min(0.22vh, 0.391111vw);
-    --arena-vw-1_04: min(1.04vh, 1.848889vw);
-    --arena-vh-2_15: min(2.15vw, 1.209375vh);
-    --arena-vw-0_68: min(0.68vh, 1.208889vw);
-    --arena-vh-0_7: min(0.7vw, 0.39375vh);
-    --arena-vh-3_1: min(3.1vw, 1.74375vh);
-    --arena-vh-1_05: min(1.05vw, 0.590625vh);
-    --arena-vw-0_94: min(0.94vh, 1.671111vw);
-    --arena-vw-3_3: min(3.3vh, 5.866667vw);
-    --arena-vh-26_5: min(26.5vw, 14.90625vh);
-    --arena-vw-2_25: min(2.25vh, 4vw);
-    --arena-vh-6: min(6vw, 3.375vh);
-    --arena-vh-5_65: min(5.65vw, 3.178125vh);
-    --arena-vw-2_05: min(2.05vh, 3.644444vw);
-    --arena-vw-0_93: min(0.93vh, 1.653333vw);
-    --arena-vh-2_5: min(2.5vw, 1.40625vh);
-    --arena-vw-0_92: min(0.92vh, 1.635556vw);
-    --arena-vw-4_5: min(4.5vh, 8vw);
-    --arena-vw-1_7: min(1.7vh, 3.022222vw);
-    --arena-vh-5_4: min(5.4vw, 3.0375vh);
-    --arena-vh-1_1: min(1.1vw, 0.61875vh);
-    --arena-vw-5_2: min(5.2vh, 9.244444vw);
-    --arena-vh-n0_1: min(-0.1vw, -0.05625vh);
-    --arena-vh-8_7: min(8.7vw, 4.89375vh);
-    --arena-vh-6_5: min(6.5vw, 3.65625vh);
-    --arena-vw-0_52: min(0.52vh, 0.924444vw);
-    --arena-vw-1_17: min(1.17vh, 2.08vw);
-    --arena-vw-0_79: min(0.79vh, 1.404444vw);
-    --arena-vw-1_32: min(1.32vh, 2.346667vw);
-    --arena-vw-2_2: min(2.2vh, 3.911111vw);
-    --arena-vh-3: min(3vw, 1.6875vh);
-    --arena-vh-4_8: min(4.8vw, 2.7vh);
-    --arena-vh-3_6: min(3.6vw, 2.025vh);
-    --arena-vh-8: min(8vw, 4.5vh);
-    --arena-vh-15: min(15vw, 8.4375vh);
-    --arena-vw-9: min(9vh, 16vw);
-    --arena-vh-13_5: min(13.5vw, 7.59375vh);
-    --arena-vh-26: min(26vw, 14.625vh);
-    --arena-vh-29: min(29vw, 16.3125vh);
-    --arena-vh-21_75: min(21.75vw, 12.234375vh);
-    --arena-vh-n1: min(-1vw, -0.5625vh);
-    --arena-vw-0_66: min(0.66vh, 1.173333vw);
-    --arena-vh-1_4: min(1.4vw, 0.7875vh);
-    --arena-vh-0_9: min(0.9vw, 0.50625vh);
-    --arena-vw-8: min(8vh, 14.222222vw);
-    --arena-vh-19: min(19vw, 10.6875vh);
-    --arena-vh-5_5: min(5.5vw, 3.09375vh);
-    --arena-vw-2_7: min(2.7vh, 4.8vw);
-    --arena-vh-3_9: min(3.9vw, 2.19375vh);
-    --arena-vw-0_88: min(0.88vh, 1.564444vw);
-    --arena-vw-30: min(30vh, 53.333333vw);
-    --arena-vw-88: min(88vh, 156.444444vw);
-    --arena-vh-87: min(87vw, 48.9375vh);
-    --arena-vh-75: min(75vw, 42.1875vh);
-    --arena-vh-70: min(70vw, 39.375vh);
-    --arena-vh-62: min(62vw, 34.875vh);
-    --arena-vh-28: min(28vw, 15.75vh);
-    --arena-vw-n60: min(-60vh, -106.666667vw);
-    --arena-vw-60: min(60vh, 106.666667vw);
-    --arena-vh-n0_7: min(-0.7vw, -0.39375vh);
-    --arena-vh-35: min(35vw, 19.6875vh);
-    --arena-vh-25: min(25vw, 14.0625vh);
-    --arena-vw-3_7: min(3.7vh, 6.577778vw);
-    --arena-vw-4: min(4vh, 7.111111vw);
-    --arena-vw-22: min(22vh, 39.111111vw);
-    --arena-vw-95: min(95vh, 168.888889vw);
-    --arena-vh-74: min(74vw, 41.625vh);
-    --arena-vh-72: min(72vw, 40.5vh);
-    --arena-vw-1_08: min(1.08vh, 1.92vw);
-    --arena-vh-11: min(11vw, 6.1875vh);
-    --arena-vh-18_75: min(18.75vw, 10.546875vh);
-    --arena-vw-0_58: min(0.58vh, 1.031111vw);
-    --arena-vw-0_78: min(0.78vh, 1.386667vw);
-    --arena-vh-0_32: min(0.32vw, 0.18vh);
-    --arena-vw-0_76: min(0.76vh, 1.351111vw);
-    --arena-vw-0_63: min(0.63vh, 1.12vw);
-    --arena-vh-2_7: min(2.7vw, 1.51875vh);
-    --arena-vw-1_03: min(1.03vh, 1.831111vw);
-    --arena-vw-0_62: min(0.62vh, 1.102222vw);
-    --arena-vh-0_22: min(0.22vw, 0.12375vh);
-    --arena-vw-1_22: min(1.22vh, 2.168889vw);
-    --arena-vw-0_15: min(0.15vh, 0.266667vw);
-    --arena-vw-0_18: min(0.18vh, 0.32vw);
-    --arena-vh-1_55: min(1.55vw, 0.871875vh);
-    --arena-vw-0_57: min(0.57vh, 1.013333vw);
-    --arena-vh-2_45: min(2.45vw, 1.378125vh);
-    --arena-vw-0_59: min(0.59vh, 1.048889vw);
-    --arena-vh-0_18: min(0.18vw, 0.10125vh);
-    --arena-vw-0_56: min(0.56vh, 0.995556vw);
-    --arena-vh-0_13: min(0.13vw, 0.073125vh);
-    --arena-vw-0_69: min(0.69vh, 1.226667vw);
-    --arena-vw-100: min(100vh, 177.777778vw);
+    --arena-vw-4_7: 4.7cqw;
+    --arena-vh-1_5: 1.5cqh;
+    --arena-vh-40: 40cqh;
+    --arena-vw-20: 20cqw;
+    --arena-vh-22: 22cqh;
+    --arena-vw-6: 6cqw;
+    --arena-vh-2: 2cqh;
+    --arena-vw-2: 2cqw;
+    --arena-vw-0_7: 0.7cqw;
+    --arena-vh-1_7: 1.7cqh;
+    --arena-vw-1_05: 1.05cqw;
+    --arena-vw-0_4: 0.4cqw;
+    --arena-vh-0_5: 0.5cqh;
+    --arena-vw-0_9: 0.9cqw;
+    --arena-vh-4_25: 4.25cqh;
+    --arena-vw-1: 1cqw;
+    --arena-vw-0_8: 0.8cqw;
+    --arena-vh-1_25: 1.25cqh;
+    --arena-vw-1_35: 1.35cqw;
+    --arena-vw-1_02: 1.02cqw;
+    --arena-vw-0_35: 0.35cqw;
+    --arena-vw-1_2: 1.2cqw;
+    --arena-vw-1_5: 1.5cqw;
+    --arena-vw-0_3: 0.3cqw;
+    --arena-vh-0_4: 0.4cqh;
+    --arena-vw-0_82: 0.82cqw;
+    --arena-vw-1_3: 1.3cqw;
+    --arena-vh-0_35: 0.35cqh;
+    --arena-vw-0_65: 0.65cqw;
+    --arena-vw-0_5: 0.5cqw;
+    --arena-vh-0_65: 0.65cqh;
+    --arena-vh-3_2: 3.2cqh;
+    --arena-vw-3: 3cqw;
+    --arena-vh-1_8: 1.8cqh;
+    --arena-vw-1_6: 1.6cqw;
+    --arena-vw-0_72: 0.72cqw;
+    --arena-vw-3_5: 3.5cqw;
+    --arena-vh-0_3: 0.3cqh;
+    --arena-vh-0_6: 0.6cqh;
+    --arena-vh-1_2: 1.2cqh;
+    --arena-vh-0_85: 0.85cqh;
+    --arena-vw-0_75: 0.75cqw;
+    --arena-vh-3_3: 3.3cqh;
+    --arena-vh-0_8: 0.8cqh;
+    --arena-vh-0_2: 0.2cqh;
+    --arena-vh-0_45: 0.45cqh;
+    --arena-vw-0_6: 0.6cqw;
+    --arena-vh-4: 4cqh;
+    --arena-vw-1_15: 1.15cqw;
+    --arena-vh-9: 9cqh;
+    --arena-vw-1_1: 1.1cqw;
+    --arena-vh-1: 1cqh;
+    --arena-vh-33: 33cqh;
+    --arena-vh-24_75: 24.75cqh;
+    --arena-vw-13: 13cqw;
+    --arena-vh-10: 10cqh;
+    --arena-vh-n1_2: -1.2cqh;
+    --arena-vw-n1: -1cqw;
+    --arena-vh-27: 27cqh;
+    --arena-vh-1_3: 1.3cqh;
+    --arena-vw-1_65: 1.65cqw;
+    --arena-vw-0_98: 0.98cqw;
+    --arena-vh-3_8: 3.8cqh;
+    --arena-vh-4_5: 4.5cqh;
+    --arena-vw-0_85: 0.85cqw;
+    --arena-vh-5_6: 5.6cqh;
+    --arena-vw-3_1: 3.1cqw;
+    --arena-vw-2_9: 2.9cqw;
+    --arena-vw-0_2: 0.2cqw;
+    --arena-vh-n0_15: -0.15cqh;
+    --arena-vw-0_25: 0.25cqw;
+    --arena-vh-7_4: 7.4cqh;
+    --arena-vw-0_83: 0.83cqw;
+    --arena-vh-0_55: 0.55cqh;
+    --arena-vw-0_55: 0.55cqw;
+    --arena-vw-0_48: 0.48cqw;
+    --arena-vh-6_4: 6.4cqh;
+    --arena-vw-0_45: 0.45cqw;
+    --arena-vh-0_1: 0.1cqh;
+    --arena-vw-1_4: 1.4cqw;
+    --arena-vh-0_25: 0.25cqh;
+    --arena-vw-0_23: 0.23cqw;
+    --arena-vw-2_35: 2.35cqw;
+    --arena-vw-2_3: 2.3cqw;
+    --arena-vh-13_9: 13.9cqh;
+    --arena-vw-0_32: 0.32cqw;
+    --arena-vw-2_15: 2.15cqw;
+    --arena-vh-2_85: 2.85cqh;
+    --arena-vh-0_36: 0.36cqh;
+    --arena-vh-2_25: 2.25cqh;
+    --arena-vh-n0_5: -0.5cqh;
+    --arena-vh-2_8: 2.8cqh;
+    --arena-vw-0_95: 0.95cqw;
+    --arena-vw-0_87: 0.87cqw;
+    --arena-vh-2_1: 2.1cqh;
+    --arena-vw-1_25: 1.25cqw;
+    --arena-vw-1_45: 1.45cqw;
+    --arena-vw-0_22: 0.22cqw;
+    --arena-vw-1_04: 1.04cqw;
+    --arena-vh-2_15: 2.15cqh;
+    --arena-vw-0_68: 0.68cqw;
+    --arena-vh-0_7: 0.7cqh;
+    --arena-vh-3_1: 3.1cqh;
+    --arena-vh-1_05: 1.05cqh;
+    --arena-vw-0_94: 0.94cqw;
+    --arena-vw-3_3: 3.3cqw;
+    --arena-vh-26_5: 26.5cqh;
+    --arena-vw-2_25: 2.25cqw;
+    --arena-vh-6: 6cqh;
+    --arena-vh-5_65: 5.65cqh;
+    --arena-vw-2_05: 2.05cqw;
+    --arena-vw-0_93: 0.93cqw;
+    --arena-vh-2_5: 2.5cqh;
+    --arena-vw-0_92: 0.92cqw;
+    --arena-vw-4_5: 4.5cqw;
+    --arena-vw-1_7: 1.7cqw;
+    --arena-vh-5_4: 5.4cqh;
+    --arena-vh-1_1: 1.1cqh;
+    --arena-vw-5_2: 5.2cqw;
+    --arena-vh-n0_1: -0.1cqh;
+    --arena-vh-8_7: 8.7cqh;
+    --arena-vh-6_5: 6.5cqh;
+    --arena-vw-0_52: 0.52cqw;
+    --arena-vw-1_17: 1.17cqw;
+    --arena-vw-0_79: 0.79cqw;
+    --arena-vw-1_32: 1.32cqw;
+    --arena-vw-2_2: 2.2cqw;
+    --arena-vh-3: 3cqh;
+    --arena-vh-4_8: 4.8cqh;
+    --arena-vh-3_6: 3.6cqh;
+    --arena-vh-8: 8cqh;
+    --arena-vh-15: 15cqh;
+    --arena-vw-9: 9cqw;
+    --arena-vh-13_5: 13.5cqh;
+    --arena-vh-26: 26cqh;
+    --arena-vh-29: 29cqh;
+    --arena-vh-21_75: 21.75cqh;
+    --arena-vh-n1: -1cqh;
+    --arena-vw-0_66: 0.66cqw;
+    --arena-vh-1_4: 1.4cqh;
+    --arena-vh-0_9: 0.9cqh;
+    --arena-vw-8: 8cqw;
+    --arena-vh-19: 19cqh;
+    --arena-vh-5_5: 5.5cqh;
+    --arena-vw-2_7: 2.7cqw;
+    --arena-vh-3_9: 3.9cqh;
+    --arena-vw-0_88: 0.88cqw;
+    --arena-vw-30: 30cqw;
+    --arena-vw-88: 88cqw;
+    --arena-vh-87: 87cqh;
+    --arena-vh-75: 75cqh;
+    --arena-vh-70: 70cqh;
+    --arena-vh-62: 62cqh;
+    --arena-vh-28: 28cqh;
+    --arena-vw-n60: -60cqw;
+    --arena-vw-60: 60cqw;
+    --arena-vh-n0_7: -0.7cqh;
+    --arena-vh-35: 35cqh;
+    --arena-vh-25: 25cqh;
+    --arena-vw-3_7: 3.7cqw;
+    --arena-vw-4: 4cqw;
+    --arena-vw-22: 22cqw;
+    --arena-vw-95: 95cqw;
+    --arena-vh-74: 74cqh;
+    --arena-vh-72: 72cqh;
+    --arena-vw-1_08: 1.08cqw;
+    --arena-vh-11: 11cqh;
+    --arena-vh-18_75: 18.75cqh;
+    --arena-vw-0_58: 0.58cqw;
+    --arena-vw-0_78: 0.78cqw;
+    --arena-vh-0_32: 0.32cqh;
+    --arena-vw-0_76: 0.76cqw;
+    --arena-vw-0_63: 0.63cqw;
+    --arena-vh-2_7: 2.7cqh;
+    --arena-vw-1_03: 1.03cqw;
+    --arena-vw-0_62: 0.62cqw;
+    --arena-vh-0_22: 0.22cqh;
+    --arena-vw-1_22: 1.22cqw;
+    --arena-vw-0_15: 0.15cqw;
+    --arena-vw-0_18: 0.18cqw;
+    --arena-vh-1_55: 1.55cqh;
+    --arena-vw-0_57: 0.57cqw;
+    --arena-vh-2_45: 2.45cqh;
+    --arena-vw-0_59: 0.59cqw;
+    --arena-vh-0_18: 0.18cqh;
+    --arena-vw-0_56: 0.56cqw;
+    --arena-vh-0_13: 0.13cqh;
+    --arena-vw-0_69: 0.69cqw;
+    --arena-vw-100: 100cqw;
     max-width: none;
     max-height: none;
+    container-type: size;
   }
 }
 @media (max-height: 500px) and (min-aspect-ratio: 1.4) and (max-width: 1200px) {
@@ -4092,194 +4093,677 @@
     transform: translate(-50%, -50%);
     transform-origin: center center;
     overflow: hidden;
-    --arena-vw-4_7: min(4.7vw, 8.355556vh);
-    --arena-vw-20: min(20vw, 35.555556vh);
-    --arena-vw-6: min(6vw, 10.666667vh);
-    --arena-vw-2: min(2vw, 3.555556vh);
-    --arena-vw-0_7: min(0.7vw, 1.244444vh);
-    --arena-vw-1_05: min(1.05vw, 1.866667vh);
-    --arena-vw-0_4: min(0.4vw, 0.711111vh);
-    --arena-vw-0_9: min(0.9vw, 1.6vh);
-    --arena-vw-1: min(1vw, 1.777778vh);
-    --arena-vw-0_8: min(0.8vw, 1.422222vh);
-    --arena-vw-1_35: min(1.35vw, 2.4vh);
-    --arena-vw-1_02: min(1.02vw, 1.813333vh);
-    --arena-vw-0_35: min(0.35vw, 0.622222vh);
-    --arena-vw-1_2: min(1.2vw, 2.133333vh);
-    --arena-vw-1_5: min(1.5vw, 2.666667vh);
-    --arena-vw-0_3: min(0.3vw, 0.533333vh);
-    --arena-vw-0_82: min(0.82vw, 1.457778vh);
-    --arena-vw-1_3: min(1.3vw, 2.311111vh);
-    --arena-vw-0_65: min(0.65vw, 1.155556vh);
-    --arena-vw-0_5: min(0.5vw, 0.888889vh);
-    --arena-vw-3: min(3vw, 5.333333vh);
-    --arena-vw-1_6: min(1.6vw, 2.844444vh);
-    --arena-vw-0_72: min(0.72vw, 1.28vh);
-    --arena-vw-3_5: min(3.5vw, 6.222222vh);
-    --arena-vw-0_75: min(0.75vw, 1.333333vh);
-    --arena-vw-0_6: min(0.6vw, 1.066667vh);
-    --arena-vw-1_15: min(1.15vw, 2.044444vh);
-    --arena-vw-1_1: min(1.1vw, 1.955556vh);
-    --arena-vw-13: min(13vw, 23.111111vh);
-    --arena-vw-n1: min(-1vw, -1.777778vh);
-    --arena-vw-1_65: min(1.65vw, 2.933333vh);
-    --arena-vw-0_98: min(0.98vw, 1.742222vh);
-    --arena-vw-0_85: min(0.85vw, 1.511111vh);
-    --arena-vw-3_1: min(3.1vw, 5.511111vh);
-    --arena-vw-2_9: min(2.9vw, 5.155556vh);
-    --arena-vw-0_2: min(0.2vw, 0.355556vh);
-    --arena-vw-0_25: min(0.25vw, 0.444444vh);
-    --arena-vw-0_83: min(0.83vw, 1.475556vh);
-    --arena-vw-0_55: min(0.55vw, 0.977778vh);
-    --arena-vw-0_48: min(0.48vw, 0.853333vh);
-    --arena-vw-0_45: min(0.45vw, 0.8vh);
-    --arena-vw-1_4: min(1.4vw, 2.488889vh);
-    --arena-vw-0_23: min(0.23vw, 0.408889vh);
-    --arena-vw-2_35: min(2.35vw, 4.177778vh);
-    --arena-vw-2_3: min(2.3vw, 4.088889vh);
-    --arena-vw-0_32: min(0.32vw, 0.568889vh);
-    --arena-vw-2_15: min(2.15vw, 3.822222vh);
-    --arena-vw-0_95: min(0.95vw, 1.688889vh);
-    --arena-vw-0_87: min(0.87vw, 1.546667vh);
-    --arena-vw-1_25: min(1.25vw, 2.222222vh);
-    --arena-vw-1_45: min(1.45vw, 2.577778vh);
-    --arena-vw-0_22: min(0.22vw, 0.391111vh);
-    --arena-vw-1_04: min(1.04vw, 1.848889vh);
-    --arena-vw-0_68: min(0.68vw, 1.208889vh);
-    --arena-vw-0_94: min(0.94vw, 1.671111vh);
-    --arena-vw-3_3: min(3.3vw, 5.866667vh);
-    --arena-vw-2_25: min(2.25vw, 4vh);
-    --arena-vw-2_05: min(2.05vw, 3.644444vh);
-    --arena-vw-0_93: min(0.93vw, 1.653333vh);
-    --arena-vw-0_92: min(0.92vw, 1.635556vh);
-    --arena-vw-4_5: min(4.5vw, 8vh);
-    --arena-vw-1_7: min(1.7vw, 3.022222vh);
-    --arena-vw-5_2: min(5.2vw, 9.244444vh);
-    --arena-vw-0_52: min(0.52vw, 0.924444vh);
-    --arena-vw-1_17: min(1.17vw, 2.08vh);
-    --arena-vw-0_79: min(0.79vw, 1.404444vh);
-    --arena-vw-1_32: min(1.32vw, 2.346667vh);
-    --arena-vw-2_2: min(2.2vw, 3.911111vh);
-    --arena-vw-9: min(9vw, 16vh);
-    --arena-vw-0_66: min(0.66vw, 1.173333vh);
-    --arena-vw-8: min(8vw, 14.222222vh);
-    --arena-vw-2_7: min(2.7vw, 4.8vh);
-    --arena-vw-0_88: min(0.88vw, 1.564444vh);
-    --arena-vw-30: min(30vw, 53.333333vh);
-    --arena-vw-88: min(88vw, 156.444444vh);
-    --arena-vw-n60: min(-60vw, -106.666667vh);
-    --arena-vw-60: min(60vw, 106.666667vh);
-    --arena-vw-3_7: min(3.7vw, 6.577778vh);
-    --arena-vw-4: min(4vw, 7.111111vh);
-    --arena-vw-22: min(22vw, 39.111111vh);
-    --arena-vw-95: min(95vw, 168.888889vh);
-    --arena-vw-1_08: min(1.08vw, 1.92vh);
-    --arena-vw-0_58: min(0.58vw, 1.031111vh);
-    --arena-vw-0_78: min(0.78vw, 1.386667vh);
-    --arena-vw-0_76: min(0.76vw, 1.351111vh);
-    --arena-vw-0_63: min(0.63vw, 1.12vh);
-    --arena-vw-1_03: min(1.03vw, 1.831111vh);
-    --arena-vw-0_62: min(0.62vw, 1.102222vh);
-    --arena-vw-1_22: min(1.22vw, 2.168889vh);
-    --arena-vw-0_15: min(0.15vw, 0.266667vh);
-    --arena-vw-0_18: min(0.18vw, 0.32vh);
-    --arena-vw-0_57: min(0.57vw, 1.013333vh);
-    --arena-vw-0_59: min(0.59vw, 1.048889vh);
-    --arena-vw-0_56: min(0.56vw, 0.995556vh);
-    --arena-vw-0_69: min(0.69vw, 1.226667vh);
-    --arena-vw-100: min(100vw, 177.777778vh);
-    --arena-vh-1_5: min(1.5dvh, 0.84375vw);
-    --arena-vh-40: min(40dvh, 22.5vw);
-    --arena-vh-22: min(22dvh, 12.375vw);
-    --arena-vh-2: min(2dvh, 1.125vw);
-    --arena-vh-1_7: min(1.7dvh, 0.95625vw);
-    --arena-vh-0_5: min(0.5dvh, 0.28125vw);
-    --arena-vh-4_25: min(4.25dvh, 2.390625vw);
-    --arena-vh-1_25: min(1.25dvh, 0.703125vw);
-    --arena-vh-0_4: min(0.4dvh, 0.225vw);
-    --arena-vh-0_35: min(0.35dvh, 0.196875vw);
-    --arena-vh-0_65: min(0.65dvh, 0.365625vw);
-    --arena-vh-3_2: min(3.2dvh, 1.8vw);
-    --arena-vh-1_8: min(1.8dvh, 1.0125vw);
-    --arena-vh-0_3: min(0.3dvh, 0.16875vw);
-    --arena-vh-0_6: min(0.6dvh, 0.3375vw);
-    --arena-vh-1_2: min(1.2dvh, 0.675vw);
-    --arena-vh-0_85: min(0.85dvh, 0.478125vw);
-    --arena-vh-3_3: min(3.3dvh, 1.85625vw);
-    --arena-vh-0_8: min(0.8dvh, 0.45vw);
-    --arena-vh-0_2: min(0.2dvh, 0.1125vw);
-    --arena-vh-0_45: min(0.45dvh, 0.253125vw);
-    --arena-vh-4: min(4dvh, 2.25vw);
-    --arena-vh-9: min(9dvh, 5.0625vw);
-    --arena-vh-1: min(1dvh, 0.5625vw);
-    --arena-vh-33: min(33dvh, 18.5625vw);
-    --arena-vh-24_75: min(24.75dvh, 13.921875vw);
-    --arena-vh-10: min(10dvh, 5.625vw);
-    --arena-vh-n1_2: min(-1.2dvh, -0.675vw);
-    --arena-vh-27: min(27dvh, 15.1875vw);
-    --arena-vh-1_3: min(1.3dvh, 0.73125vw);
-    --arena-vh-3_8: min(3.8dvh, 2.1375vw);
-    --arena-vh-4_5: min(4.5dvh, 2.53125vw);
-    --arena-vh-5_6: min(5.6dvh, 3.15vw);
-    --arena-vh-n0_15: min(-0.15dvh, -0.084375vw);
-    --arena-vh-7_4: min(7.4dvh, 4.1625vw);
-    --arena-vh-0_55: min(0.55dvh, 0.309375vw);
-    --arena-vh-6_4: min(6.4dvh, 3.6vw);
-    --arena-vh-0_1: min(0.1dvh, 0.05625vw);
-    --arena-vh-0_25: min(0.25dvh, 0.140625vw);
-    --arena-vh-13_9: min(13.9dvh, 7.81875vw);
-    --arena-vh-2_85: min(2.85dvh, 1.603125vw);
-    --arena-vh-0_36: min(0.36dvh, 0.2025vw);
-    --arena-vh-2_25: min(2.25dvh, 1.265625vw);
-    --arena-vh-n0_5: min(-0.5dvh, -0.28125vw);
-    --arena-vh-2_8: min(2.8dvh, 1.575vw);
-    --arena-vh-2_1: min(2.1dvh, 1.18125vw);
-    --arena-vh-2_15: min(2.15dvh, 1.209375vw);
-    --arena-vh-0_7: min(0.7dvh, 0.39375vw);
-    --arena-vh-3_1: min(3.1dvh, 1.74375vw);
-    --arena-vh-1_05: min(1.05dvh, 0.590625vw);
-    --arena-vh-26_5: min(26.5dvh, 14.90625vw);
-    --arena-vh-6: min(6dvh, 3.375vw);
-    --arena-vh-5_65: min(5.65dvh, 3.178125vw);
-    --arena-vh-2_5: min(2.5dvh, 1.40625vw);
-    --arena-vh-5_4: min(5.4dvh, 3.0375vw);
-    --arena-vh-1_1: min(1.1dvh, 0.61875vw);
-    --arena-vh-n0_1: min(-0.1dvh, -0.05625vw);
-    --arena-vh-8_7: min(8.7dvh, 4.89375vw);
-    --arena-vh-6_5: min(6.5dvh, 3.65625vw);
-    --arena-vh-3: min(3dvh, 1.6875vw);
-    --arena-vh-4_8: min(4.8dvh, 2.7vw);
-    --arena-vh-3_6: min(3.6dvh, 2.025vw);
-    --arena-vh-8: min(8dvh, 4.5vw);
-    --arena-vh-15: min(15dvh, 8.4375vw);
-    --arena-vh-13_5: min(13.5dvh, 7.59375vw);
-    --arena-vh-26: min(26dvh, 14.625vw);
-    --arena-vh-29: min(29dvh, 16.3125vw);
-    --arena-vh-21_75: min(21.75dvh, 12.234375vw);
-    --arena-vh-n1: min(-1dvh, -0.5625vw);
-    --arena-vh-1_4: min(1.4dvh, 0.7875vw);
-    --arena-vh-0_9: min(0.9dvh, 0.50625vw);
-    --arena-vh-19: min(19dvh, 10.6875vw);
-    --arena-vh-5_5: min(5.5dvh, 3.09375vw);
-    --arena-vh-3_9: min(3.9dvh, 2.19375vw);
-    --arena-vh-87: min(87dvh, 48.9375vw);
-    --arena-vh-75: min(75dvh, 42.1875vw);
-    --arena-vh-70: min(70dvh, 39.375vw);
-    --arena-vh-62: min(62dvh, 34.875vw);
-    --arena-vh-28: min(28dvh, 15.75vw);
-    --arena-vh-n0_7: min(-0.7dvh, -0.39375vw);
-    --arena-vh-35: min(35dvh, 19.6875vw);
-    --arena-vh-25: min(25dvh, 14.0625vw);
-    --arena-vh-74: min(74dvh, 41.625vw);
-    --arena-vh-72: min(72dvh, 40.5vw);
-    --arena-vh-11: min(11dvh, 6.1875vw);
-    --arena-vh-18_75: min(18.75dvh, 10.546875vw);
-    --arena-vh-0_32: min(0.32dvh, 0.18vw);
-    --arena-vh-2_7: min(2.7dvh, 1.51875vw);
-    --arena-vh-0_22: min(0.22dvh, 0.12375vw);
-    --arena-vh-1_55: min(1.55dvh, 0.871875vw);
-    --arena-vh-2_45: min(2.45dvh, 1.378125vw);
-    --arena-vh-0_18: min(0.18dvh, 0.10125vw);
-    --arena-vh-0_13: min(0.13dvh, 0.073125vw);
+    --arena-vw-4_7: 4.7cqw;
+    --arena-vw-20: 20cqw;
+    --arena-vw-6: 6cqw;
+    --arena-vw-2: 2cqw;
+    --arena-vw-0_7: 0.7cqw;
+    --arena-vw-1_05: 1.05cqw;
+    --arena-vw-0_4: 0.4cqw;
+    --arena-vw-0_9: 0.9cqw;
+    --arena-vw-1: 1cqw;
+    --arena-vw-0_8: 0.8cqw;
+    --arena-vw-1_35: 1.35cqw;
+    --arena-vw-1_02: 1.02cqw;
+    --arena-vw-0_35: 0.35cqw;
+    --arena-vw-1_2: 1.2cqw;
+    --arena-vw-1_5: 1.5cqw;
+    --arena-vw-0_3: 0.3cqw;
+    --arena-vw-0_82: 0.82cqw;
+    --arena-vw-1_3: 1.3cqw;
+    --arena-vw-0_65: 0.65cqw;
+    --arena-vw-0_5: 0.5cqw;
+    --arena-vw-3: 3cqw;
+    --arena-vw-1_6: 1.6cqw;
+    --arena-vw-0_72: 0.72cqw;
+    --arena-vw-3_5: 3.5cqw;
+    --arena-vw-0_75: 0.75cqw;
+    --arena-vw-0_6: 0.6cqw;
+    --arena-vw-1_15: 1.15cqw;
+    --arena-vw-1_1: 1.1cqw;
+    --arena-vw-13: 13cqw;
+    --arena-vw-n1: -1cqw;
+    --arena-vw-1_65: 1.65cqw;
+    --arena-vw-0_98: 0.98cqw;
+    --arena-vw-0_85: 0.85cqw;
+    --arena-vw-3_1: 3.1cqw;
+    --arena-vw-2_9: 2.9cqw;
+    --arena-vw-0_2: 0.2cqw;
+    --arena-vw-0_25: 0.25cqw;
+    --arena-vw-0_83: 0.83cqw;
+    --arena-vw-0_55: 0.55cqw;
+    --arena-vw-0_48: 0.48cqw;
+    --arena-vw-0_45: 0.45cqw;
+    --arena-vw-1_4: 1.4cqw;
+    --arena-vw-0_23: 0.23cqw;
+    --arena-vw-2_35: 2.35cqw;
+    --arena-vw-2_3: 2.3cqw;
+    --arena-vw-0_32: 0.32cqw;
+    --arena-vw-2_15: 2.15cqw;
+    --arena-vw-0_95: 0.95cqw;
+    --arena-vw-0_87: 0.87cqw;
+    --arena-vw-1_25: 1.25cqw;
+    --arena-vw-1_45: 1.45cqw;
+    --arena-vw-0_22: 0.22cqw;
+    --arena-vw-1_04: 1.04cqw;
+    --arena-vw-0_68: 0.68cqw;
+    --arena-vw-0_94: 0.94cqw;
+    --arena-vw-3_3: 3.3cqw;
+    --arena-vw-2_25: 2.25cqw;
+    --arena-vw-2_05: 2.05cqw;
+    --arena-vw-0_93: 0.93cqw;
+    --arena-vw-0_92: 0.92cqw;
+    --arena-vw-4_5: 4.5cqw;
+    --arena-vw-1_7: 1.7cqw;
+    --arena-vw-5_2: 5.2cqw;
+    --arena-vw-0_52: 0.52cqw;
+    --arena-vw-1_17: 1.17cqw;
+    --arena-vw-0_79: 0.79cqw;
+    --arena-vw-1_32: 1.32cqw;
+    --arena-vw-2_2: 2.2cqw;
+    --arena-vw-9: 9cqw;
+    --arena-vw-0_66: 0.66cqw;
+    --arena-vw-8: 8cqw;
+    --arena-vw-2_7: 2.7cqw;
+    --arena-vw-0_88: 0.88cqw;
+    --arena-vw-30: 30cqw;
+    --arena-vw-88: 88cqw;
+    --arena-vw-n60: -60cqw;
+    --arena-vw-60: 60cqw;
+    --arena-vw-3_7: 3.7cqw;
+    --arena-vw-4: 4cqw;
+    --arena-vw-22: 22cqw;
+    --arena-vw-95: 95cqw;
+    --arena-vw-1_08: 1.08cqw;
+    --arena-vw-0_58: 0.58cqw;
+    --arena-vw-0_78: 0.78cqw;
+    --arena-vw-0_76: 0.76cqw;
+    --arena-vw-0_63: 0.63cqw;
+    --arena-vw-1_03: 1.03cqw;
+    --arena-vw-0_62: 0.62cqw;
+    --arena-vw-1_22: 1.22cqw;
+    --arena-vw-0_15: 0.15cqw;
+    --arena-vw-0_18: 0.18cqw;
+    --arena-vw-0_57: 0.57cqw;
+    --arena-vw-0_59: 0.59cqw;
+    --arena-vw-0_56: 0.56cqw;
+    --arena-vw-0_69: 0.69cqw;
+    --arena-vw-100: 100cqw;
+    --arena-vh-1_5: 1.5cqh;
+    --arena-vh-40: 40cqh;
+    --arena-vh-22: 22cqh;
+    --arena-vh-2: 2cqh;
+    --arena-vh-1_7: 1.7cqh;
+    --arena-vh-0_5: 0.5cqh;
+    --arena-vh-4_25: 4.25cqh;
+    --arena-vh-1_25: 1.25cqh;
+    --arena-vh-0_4: 0.4cqh;
+    --arena-vh-0_35: 0.35cqh;
+    --arena-vh-0_65: 0.65cqh;
+    --arena-vh-3_2: 3.2cqh;
+    --arena-vh-1_8: 1.8cqh;
+    --arena-vh-0_3: 0.3cqh;
+    --arena-vh-0_6: 0.6cqh;
+    --arena-vh-1_2: 1.2cqh;
+    --arena-vh-0_85: 0.85cqh;
+    --arena-vh-3_3: 3.3cqh;
+    --arena-vh-0_8: 0.8cqh;
+    --arena-vh-0_2: 0.2cqh;
+    --arena-vh-0_45: 0.45cqh;
+    --arena-vh-4: 4cqh;
+    --arena-vh-9: 9cqh;
+    --arena-vh-1: 1cqh;
+    --arena-vh-33: 33cqh;
+    --arena-vh-24_75: 24.75cqh;
+    --arena-vh-10: 10cqh;
+    --arena-vh-n1_2: -1.2cqh;
+    --arena-vh-27: 27cqh;
+    --arena-vh-1_3: 1.3cqh;
+    --arena-vh-3_8: 3.8cqh;
+    --arena-vh-4_5: 4.5cqh;
+    --arena-vh-5_6: 5.6cqh;
+    --arena-vh-n0_15: -0.15cqh;
+    --arena-vh-7_4: 7.4cqh;
+    --arena-vh-0_55: 0.55cqh;
+    --arena-vh-6_4: 6.4cqh;
+    --arena-vh-0_1: 0.1cqh;
+    --arena-vh-0_25: 0.25cqh;
+    --arena-vh-13_9: 13.9cqh;
+    --arena-vh-2_85: 2.85cqh;
+    --arena-vh-0_36: 0.36cqh;
+    --arena-vh-2_25: 2.25cqh;
+    --arena-vh-n0_5: -0.5cqh;
+    --arena-vh-2_8: 2.8cqh;
+    --arena-vh-2_1: 2.1cqh;
+    --arena-vh-2_15: 2.15cqh;
+    --arena-vh-0_7: 0.7cqh;
+    --arena-vh-3_1: 3.1cqh;
+    --arena-vh-1_05: 1.05cqh;
+    --arena-vh-26_5: 26.5cqh;
+    --arena-vh-6: 6cqh;
+    --arena-vh-5_65: 5.65cqh;
+    --arena-vh-2_5: 2.5cqh;
+    --arena-vh-5_4: 5.4cqh;
+    --arena-vh-1_1: 1.1cqh;
+    --arena-vh-n0_1: -0.1cqh;
+    --arena-vh-8_7: 8.7cqh;
+    --arena-vh-6_5: 6.5cqh;
+    --arena-vh-3: 3cqh;
+    --arena-vh-4_8: 4.8cqh;
+    --arena-vh-3_6: 3.6cqh;
+    --arena-vh-8: 8cqh;
+    --arena-vh-15: 15cqh;
+    --arena-vh-13_5: 13.5cqh;
+    --arena-vh-26: 26cqh;
+    --arena-vh-29: 29cqh;
+    --arena-vh-21_75: 21.75cqh;
+    --arena-vh-n1: -1cqh;
+    --arena-vh-1_4: 1.4cqh;
+    --arena-vh-0_9: 0.9cqh;
+    --arena-vh-19: 19cqh;
+    --arena-vh-5_5: 5.5cqh;
+    --arena-vh-3_9: 3.9cqh;
+    --arena-vh-87: 87cqh;
+    --arena-vh-75: 75cqh;
+    --arena-vh-70: 70cqh;
+    --arena-vh-62: 62cqh;
+    --arena-vh-28: 28cqh;
+    --arena-vh-n0_7: -0.7cqh;
+    --arena-vh-35: 35cqh;
+    --arena-vh-25: 25cqh;
+    --arena-vh-74: 74cqh;
+    --arena-vh-72: 72cqh;
+    --arena-vh-11: 11cqh;
+    --arena-vh-18_75: 18.75cqh;
+    --arena-vh-0_32: 0.32cqh;
+    --arena-vh-2_7: 2.7cqh;
+    --arena-vh-0_22: 0.22cqh;
+    --arena-vh-1_55: 1.55cqh;
+    --arena-vh-2_45: 2.45cqh;
+    --arena-vh-0_18: 0.18cqh;
+    --arena-vh-0_13: 0.13cqh;
+    container-type: size;
+  }
+}
+@media (max-width: 760px) and (orientation: portrait) and (min-height: 501px), (max-height: 500px) and (min-aspect-ratio: 1.4) and (max-width: 1200px) {
+  .arena-app .sr-only {
+  width: min(1px, 0.078125cqw, 0.138889cqh);
+  height: min(1px, 0.078125cqw, 0.138889cqh);
+  margin: max(-1px, -0.078125cqw, -0.138889cqh);
+  }
+  .arena-app .arena-energy i {
+  width: min(2px, 0.15625cqw, 0.277778cqh);
+  filter: blur(min(2px, 0.15625cqw, 0.277778cqh));
+  }
+  .arena-app .arena-energy i:nth-child(3) {
+  height: min(2px, 0.15625cqw, 0.277778cqh);
+  }
+  .arena-app .arena-brand {
+  min-height: min(125px, 9.765625cqw, 17.361111cqh);
+  }
+  .arena-app .arena-brand h1:not(.sr-only) {
+  text-shadow: min(4px, 0.3125cqw, 0.555556cqh) min(5px, 0.390625cqw, 0.694444cqh) #05193d;
+  }
+  .arena-app .arena-live {
+  border: min(2px, 0.15625cqw, 0.277778cqh) solid #ffc1c5;
+  border-radius: min(10px, 0.78125cqw, 1.388889cqh);
+  box-shadow:
+    0 0 min(22px, 1.71875cqw, 3.055556cqh) #ff083678,
+    0 min(2px, 0.15625cqw, 0.277778cqh) 0 #8e0014;
+  }
+  .arena-app .arena-toolbar {
+  min-height: min(31px, 2.421875cqw, 4.305556cqh);
+  border: min(1px, 0.078125cqw, 0.138889cqh) solid #02c7ff;
+  border-radius: min(10px, 0.78125cqw, 1.388889cqh);
+  box-shadow:
+    0 0 min(12px, 0.9375cqw, 1.666667cqh) #00d8ff69,
+    inset 0 min(1px, 0.078125cqw, 0.138889cqh) #90f2ff6b;
+  }
+  .arena-app .rule-tokens > span + span {
+  border-left: min(1px, 0.078125cqw, 0.138889cqh) solid #7dcdec8c;
+  }
+  .arena-app .arena-tools button {
+  border-radius: min(4px, 0.3125cqw, 0.555556cqh);
+  }
+  .arena-app .arena-tools .music-active {
+  filter: drop-shadow(0 0 min(5px, 0.390625cqw, 0.694444cqh) #ffe53188);
+  }
+  .arena-app .arena-tools button.practice-tag {
+  box-shadow: 0 0 min(14px, 1.09375cqw, 1.944444cqh) #ffed4266;
+  }
+  .arena-app .arena-primary, .arena-app .arena-secondary, .arena-app .arena-start {
+  border-radius: min(6px, 0.46875cqw, 0.833333cqh);
+  border: min(1px, 0.078125cqw, 0.138889cqh) solid #fff591;
+  box-shadow:
+    0 min(3px, 0.234375cqw, 0.416667cqh) 0 #b98000,
+    0 0 min(16px, 1.25cqw, 2.222222cqh) #ffd72933;
+  }
+  .arena-app .arena-primary:hover:not(:disabled), .arena-app .arena-start:hover:not(:disabled) {
+  transform: translateY(max(-2px, -0.15625cqw, -0.277778cqh));
+  }
+  .arena-app .arena-secondary {
+  box-shadow: 0 min(2px, 0.15625cqw, 0.277778cqh) 0 #021028;
+  }
+  .arena-app .registration-main {
+  border: min(2px, 0.15625cqw, 0.277778cqh) solid #18d8ff;
+  border-radius: min(14px, 1.09375cqw, 1.944444cqh);
+  box-shadow:
+    0 0 min(18px, 1.40625cqw, 2.5cqh) #00bfff90,
+    inset 0 min(1px, 0.078125cqw, 0.138889cqh) min(6px, 0.46875cqw, 0.833333cqh) #65e4ff30;
+  }
+  .arena-app .registration-title h2 {
+  text-shadow: min(2px, 0.15625cqw, 0.277778cqh) min(3px, 0.234375cqw, 0.416667cqh) #020f25;
+  }
+  .arena-app .registration-form input {
+  box-shadow: inset 0 min(2px, 0.15625cqw, 0.277778cqh) min(4px, 0.3125cqw, 0.555556cqh) #0b2a4240;
+  border: min(2px, 0.15625cqw, 0.277778cqh) solid #0a99cd;
+  border-radius: min(5px, 0.390625cqw, 0.694444cqh);
+  }
+  .arena-app .registered-heading {
+  border-top: min(1px, 0.078125cqw, 0.138889cqh) solid #419ddb69;
+  }
+  .arena-app .registered-heading h3 b {
+  border-radius: min(4px, 0.3125cqw, 0.555556cqh);
+  }
+  .arena-app .registered-team {
+  border: min(1px, 0.078125cqw, 0.138889cqh) solid #4c89b359;
+  border-radius: min(5px, 0.390625cqw, 0.694444cqh);
+  }
+  .arena-app .registration-bulk {
+  border: min(1px, 0.078125cqw, 0.138889cqh) solid #349ccd;
+  }
+  .arena-app .welcome-bubble {
+  border: min(2px, 0.15625cqw, 0.277778cqh) solid white;
+  box-shadow:
+    0 min(5px, 0.390625cqw, 0.694444cqh) 0 #92531450,
+    0 0 min(22px, 1.71875cqw, 3.055556cqh) #ffd51866;
+  border-radius: min(12px, 0.9375cqw, 1.666667cqh);
+  }
+  .arena-app .practice-card {
+  border: min(2px, 0.15625cqw, 0.277778cqh) solid #ffe510;
+  box-shadow: 0 0 min(16px, 1.25cqw, 2.222222cqh) #fff11152;
+  border-radius: min(12px, 0.9375cqw, 1.666667cqh);
+  }
+  .arena-app .arena-start {
+  box-shadow:
+    0 min(3px, 0.234375cqw, 0.416667cqh) #058211,
+    0 0 min(18px, 1.40625cqw, 2.5cqh) #22e63655;
+  }
+  .arena-app .adaptive-note {
+  text-shadow: 0 min(1px, 0.078125cqw, 0.138889cqh) min(3px, 0.234375cqw, 0.416667cqh) #001332;
+  }
+  .arena-app .mascot-actor {
+  filter: drop-shadow(0 min(8px, 0.625cqw, 1.111111cqh) min(8px, 0.625cqw, 1.111111cqh) #00162a66);
+  }
+  .arena-app .mascot-shadow {
+  filter: blur(min(6px, 0.46875cqw, 0.833333cqh));
+  }
+  .arena-app .mascot-spark {
+  filter: drop-shadow(0 0 min(6px, 0.46875cqw, 0.833333cqh) #ffe319);
+  }
+  .arena-app .arena-board {
+  border: min(2px, 0.15625cqw, 0.277778cqh) solid var(--accent);
+  border-radius: min(14px, 1.09375cqw, 1.944444cqh);
+  box-shadow:
+    0 0 min(5px, 0.390625cqw, 0.694444cqh) var(--accent),
+    0 0 min(22px, 1.71875cqw, 3.055556cqh) rgba(var(--accent-rgb), 0.65),
+    inset 0 0 min(20px, 1.5625cqw, 2.777778cqh) rgba(var(--accent-rgb), 0.12);
+  }
+  .arena-app .arena-board:before {
+  inset: min(2px, 0.15625cqw, 0.277778cqh);
+  border-radius: min(11px, 0.859375cqw, 1.527778cqh);
+  border: min(1px, 0.078125cqw, 0.138889cqh) solid #ffffff29;
+  }
+  .arena-app .board-title {
+  min-height: min(37px, 2.890625cqw, 5.138889cqh);
+  border-radius: min(12px, 0.9375cqw, 1.666667cqh) min(12px, 0.9375cqw, 1.666667cqh) 0 0;
+  border-bottom: min(1px, 0.078125cqw, 0.138889cqh) solid var(--accent);
+  }
+  .arena-app .board-title:before {
+  inset: min(4px, 0.3125cqw, 0.555556cqh) min(8px, 0.625cqw, 1.111111cqh);
+  background: repeating-linear-gradient(
+    165deg,
+    transparent 0 min(6px, 0.46875cqw, 0.833333cqh),
+    #0007 min(7px, 0.546875cqw, 0.972222cqh) min(10px, 0.78125cqw, 1.388889cqh),
+    transparent min(11px, 0.859375cqw, 1.527778cqh) min(19px, 1.484375cqw, 2.638889cqh)
+  );
+  }
+  .arena-app .board-title h2 {
+  text-shadow:
+    min(2px, 0.15625cqw, 0.277778cqh) min(3px, 0.234375cqw, 0.416667cqh) 0 #00102a,
+    0 0 min(3px, 0.234375cqw, 0.416667cqh) #000;
+  }
+  .arena-app .board-player {
+  filter: drop-shadow(min(2px, 0.15625cqw, 0.277778cqh) min(3px, 0.234375cqw, 0.416667cqh) min(3px, 0.234375cqw, 0.416667cqh) #0009);
+  }
+  .arena-app .board-status {
+  border-radius: min(3px, 0.234375cqw, 0.416667cqh);
+  box-shadow: 0 0 min(14px, 1.09375cqw, 1.944444cqh) #fff7;
+  }
+  .arena-app .board-status.playing i {
+  box-shadow: 0 0 min(6px, 0.46875cqw, 0.833333cqh) #ff253d;
+  }
+  .arena-app .board-score-strip {
+  min-height: min(46px, 3.59375cqw, 6.388889cqh);
+  border: min(2px, 0.15625cqw, 0.277778cqh) solid #075da6;
+  border-radius: min(10px, 0.78125cqw, 1.388889cqh);
+  box-shadow: 0 min(2px, 0.15625cqw, 0.277778cqh) min(6px, 0.46875cqw, 0.833333cqh) #00112488;
+  }
+  .arena-app .board-points b {
+  border-radius: min(4px, 0.3125cqw, 0.555556cqh);
+  box-shadow:
+    inset 0 min(1px, 0.078125cqw, 0.138889cqh) min(3px, 0.234375cqw, 0.416667cqh) #ffffffa3,
+    0 min(2px, 0.15625cqw, 0.277778cqh) min(3px, 0.234375cqw, 0.416667cqh) #07173940;
+  }
+  .arena-app .board-match-zone {
+  min-height: min(96px, 7.5cqw, 13.333333cqh);
+  }
+  .arena-app .game-entry {
+  border: min(1px, 0.078125cqw, 0.138889cqh) solid #5aa9cf;
+  border-radius: min(5px, 0.390625cqw, 0.694444cqh);
+  box-shadow: 0 min(2px, 0.15625cqw, 0.277778cqh) min(4px, 0.3125cqw, 0.555556cqh) #0007;
+  }
+  .arena-app .game-entry input[type="number"] {
+  min-width: min(24px, 1.875cqw, 3.333333cqh);
+  min-height: min(22px, 1.71875cqw, 3.055556cqh);
+  border: min(1px, 0.078125cqw, 0.138889cqh) solid #ff9db9;
+  box-shadow: inset 0 0 min(6px, 0.46875cqw, 0.833333cqh) #fff3;
+  border-radius: min(4px, 0.3125cqw, 0.555556cqh);
+  }
+  .arena-app .board-submit > button {
+  border: min(1px, 0.078125cqw, 0.138889cqh) solid #46b1d6;
+  border-radius: min(4px, 0.3125cqw, 0.555556cqh);
+  }
+  .arena-app .board-submit > button.confirm-result {
+  box-shadow: 0 0 min(12px, 0.9375cqw, 1.666667cqh) #3cff5059;
+  }
+  .arena-app .board-inline-error {
+  border: min(1px, 0.078125cqw, 0.138889cqh) solid #ffb8ca;
+  border-radius: min(5px, 0.390625cqw, 0.694444cqh);
+  box-shadow: 0 min(2px, 0.15625cqw, 0.277778cqh) min(8px, 0.625cqw, 1.111111cqh) #000a;
+  }
+  .arena-app .model-table canvas {
+  filter: drop-shadow(0 0 min(4px, 0.3125cqw, 0.555556cqh) #76ffe333);
+  }
+  .arena-app .board-next {
+  border: min(1px, 0.078125cqw, 0.138889cqh) solid #2485b6;
+  border-radius: min(5px, 0.390625cqw, 0.694444cqh);
+  }
+  .arena-app .arena-board .ranking-row.full {
+  border: min(1px, 0.078125cqw, 0.138889cqh) solid #77a5c846;
+  }
+  .arena-app .arena-board .ranking-row.full.qualified {
+  box-shadow: inset 0 min(1px, 0.078125cqw, 0.138889cqh) #43ff253d;
+  }
+  .arena-app .arena-board .ranking-head.full {
+  border: min(1px, 0.078125cqw, 0.138889cqh) solid #7faed09e;
+  border-radius: min(5px, 0.390625cqw, 0.694444cqh) min(5px, 0.390625cqw, 0.694444cqh) 0 0;
+  }
+  .arena-app .arena-board .ranking-row.cut {
+  border-bottom: min(2px, 0.15625cqw, 0.277778cqh) dashed #d7ffc2;
+  box-shadow: 0 min(2px, 0.15625cqw, 0.277778cqh) min(8px, 0.625cqw, 1.111111cqh) #33fe2333;
+  }
+  .arena-app .board-qualified {
+  border: min(1px, 0.078125cqw, 0.138889cqh) solid #52cb59;
+  border-radius: min(4px, 0.3125cqw, 0.555556cqh);
+  }
+  .arena-app .board-progress > div {
+  border: min(1px, 0.078125cqw, 0.138889cqh) solid #92b1c6;
+  box-shadow: inset 0 min(2px, 0.15625cqw, 0.277778cqh) min(6px, 0.46875cqw, 0.833333cqh) #09162c80;
+  border-radius: min(20px, 1.5625cqw, 2.777778cqh);
+  }
+  .arena-app .board-progress > div > i {
+  border-radius: min(20px, 1.5625cqw, 2.777778cqh);
+  }
+  .arena-app .board-queue > div {
+  border: min(1px, 0.078125cqw, 0.138889cqh) solid #4f9cc2;
+  border-radius: min(5px, 0.390625cqw, 0.694444cqh);
+  }
+  .arena-app .board-compact .board-title {
+  min-height: min(29px, 2.265625cqw, 4.027778cqh);
+  }
+  .arena-app .board-compact .board-score-strip {
+  min-height: min(42px, 3.28125cqw, 5.833333cqh);
+  }
+  .arena-app .arena-stage-detail {
+  border: min(1px, 0.078125cqw, 0.138889cqh) solid #00c8ff;
+  border-radius: min(10px, 0.78125cqw, 1.388889cqh);
+  box-shadow: 0 0 min(15px, 1.171875cqw, 2.083333cqh) #00c8ff55;
+  }
+  .arena-app .arena-guide {
+  border: min(1px, 0.078125cqw, 0.138889cqh) solid #fff9c5;
+  border-radius: min(9px, 0.703125cqw, 1.25cqh);
+  box-shadow:
+    0 min(3px, 0.234375cqw, 0.416667cqh) min(9px, 0.703125cqw, 1.25cqh) #02153377,
+    0 0 min(9px, 0.703125cqw, 1.25cqh) #ffe53955;
+  }
+  .arena-app .guide-avatar > .mascot-actor {
+  filter: drop-shadow(0 min(3px, 0.234375cqw, 0.416667cqh) min(3px, 0.234375cqw, 0.416667cqh) #3338);
+  }
+  .arena-app .guide-actions .arena-primary {
+  box-shadow: 0 min(2px, 0.15625cqw, 0.277778cqh) 0 #061522;
+  }
+  .arena-app .arena-footer {
+  min-height: min(34px, 2.65625cqw, 4.722222cqh);
+  border: min(1px, 0.078125cqw, 0.138889cqh) solid #29c2fd;
+  border-radius: min(28px, 2.1875cqw, 3.888889cqh);
+  box-shadow:
+    0 0 min(13px, 1.015625cqw, 1.805556cqh) #12caff77,
+    0 min(3px, 0.234375cqw, 0.416667cqh) min(5px, 0.390625cqw, 0.694444cqh) #0016338a;
+  }
+  .arena-app .tournament-transition-skip {
+  border: min(1px, 0.078125cqw, 0.138889cqh) solid #ffffff88;
+  border-radius: min(999px, 78.046875cqw, 138.75cqh);
+  }
+  .arena-app .tournament-transition-skip:hover {
+  transform: translateY(max(-2px, -0.15625cqw, -0.277778cqh));
+  }
+  .arena-app .arena-footer nav > button + button {
+  border-left: min(1px, 0.078125cqw, 0.138889cqh) solid #6796b29c;
+  }
+  .arena-app .arena-footer nav > button.selected {
+  text-shadow: 0 0 min(14px, 1.09375cqw, 1.944444cqh) #fff9;
+  }
+  .arena-app .arena-footer nav > button.selected > svg {
+  filter: drop-shadow(0 0 min(5px, 0.390625cqw, 0.694444cqh) currentColor);
+  }
+  .arena-app .footer-actions {
+  border-left: min(1px, 0.078125cqw, 0.138889cqh) solid #517a96;
+  }
+  .arena-app .arena-error {
+  gap: min(15px, 1.171875cqw, 2.083333cqh);
+  padding: min(15px, 1.171875cqw, 2.083333cqh) min(20px, 1.5625cqw, 2.777778cqh);
+  border: min(2px, 0.15625cqw, 0.277778cqh) solid #ffd4de;
+  border-radius: min(7px, 0.546875cqw, 0.972222cqh);
+  box-shadow: 0 min(15px, 1.171875cqw, 2.083333cqh) min(40px, 3.125cqw, 5.555556cqh) #000b;
+  font-size: min(16px, 1.25cqw, 2.222222cqh);
+  }
+  .arena-app .board-result-fx {
+  border: min(2px, 0.15625cqw, 0.277778cqh) solid #7aff5b;
+  border-radius: min(8px, 0.625cqw, 1.111111cqh);
+  box-shadow: 0 0 min(30px, 2.34375cqw, 4.166667cqh) #34ff6480;
+  }
+  .arena-app .board-result-fx > svg {
+  filter: drop-shadow(0 0 min(10px, 0.78125cqw, 1.388889cqh) #50ff3a);
+  }
+  .arena-app .arena-champion h2 {
+  text-shadow:
+    min(2px, 0.15625cqw, 0.277778cqh) min(4px, 0.3125cqw, 0.555556cqh) #8a3b0d,
+    0 0 min(25px, 1.953125cqw, 3.472222cqh) #ffe43377;
+  }
+  .arena-app .arena-ceremony {
+  border: min(2px, 0.15625cqw, 0.277778cqh) solid #fff691;
+  box-shadow:
+    0 0 min(30px, 2.34375cqw, 4.166667cqh) #ffe12766,
+    0 min(15px, 1.171875cqw, 2.083333cqh) min(60px, 4.6875cqw, 8.333333cqh) #000b;
+  border-radius: min(14px, 1.09375cqw, 1.944444cqh);
+  }
+  .arena-app .ceremony-copy > div {
+  border-left: min(4px, 0.3125cqw, 0.555556cqh) solid #064571;
+  }
+  .arena-app .arena-ceremony > .trophy-art {
+  filter: drop-shadow(0 min(4px, 0.3125cqw, 0.555556cqh) min(8px, 0.625cqw, 1.111111cqh) #7e400377);
+  }
+  .arena-app .ceremony-progress {
+  height: min(5px, 0.390625cqw, 0.694444cqh);
+  }
+  .arena-app .arena-draw .draw-column {
+  box-shadow: 0 0 min(15px, 1.171875cqw, 2.083333cqh) rgba(var(--accent-rgb), 0.5);
+  border: min(2px, 0.15625cqw, 0.277778cqh) solid var(--accent);
+  }
+  .arena-app > .dialog {
+  width: min(min(1200px, 93.75cqw, 166.666667cqh), var(--arena-vw-88));
+  border: min(2px, 0.15625cqw, 0.277778cqh) solid #0ac5ff;
+  box-shadow:
+    0 0 min(30px, 2.34375cqw, 4.166667cqh) #00c6ff50,
+    0 min(20px, 1.5625cqw, 2.777778cqh) min(100px, 7.8125cqw, 13.888889cqh) #000c;
+  }
+  .arena-app > .dialog .dialog-header {
+  padding: min(15px, 1.171875cqw, 2.083333cqh) min(22px, 1.71875cqw, 3.055556cqh);
+  border-bottom: min(1px, 0.078125cqw, 0.138889cqh) solid #31bef6;
+  }
+  .arena-app > .dialog .dialog-header h2 {
+  font-size: min(28px, 2.1875cqw, 3.888889cqh);
+  }
+  .arena-app .arena-panel {
+  padding: min(18px, 1.40625cqw, 2.5cqh) min(22px, 1.71875cqw, 3.055556cqh);
+  }
+  .arena-app .arena-panel .tie-instructions {
+  font-size: min(15px, 1.171875cqw, 2.083333cqh);
+  }
+  .arena-app .arena-panel .tie-resolver {
+  margin: min(15px, 1.171875cqw, 2.083333cqh) 0;
+  }
+  .arena-app .arena-panel > .arena-primary {
+  font-size: min(15px, 1.171875cqw, 2.083333cqh);
+  padding: min(12px, 0.9375cqw, 1.666667cqh) min(18px, 1.40625cqw, 2.5cqh);
+  }
+  .arena-app > .dialog:not(:has(.arena-panel)) {
+  width: min(540px, 42.1875cqw, 75cqh);
+  }
+  .arena-app .arena-panel .settings-grid {
+  gap: min(16px, 1.25cqw, 2.222222cqh);
+  }
+  .arena-app .arena-panel .settings-panel .hint {
+  font-size: min(13px, 1.015625cqw, 1.805556cqh);
+  }
+  .arena-app .arena-panel .registration-title h2 {
+  font-size: min(35px, 2.734375cqw, 4.861111cqh);
+  }
+  .arena-app .arena-panel .registration-title > span {
+  font-size: min(11px, 0.859375cqw, 1.527778cqh);
+  }
+  .arena-app .arena-panel .registration-title p {
+  font-size: min(14px, 1.09375cqw, 1.944444cqh);
+  }
+  .arena-app .arena-panel .registration-form label {
+  font-size: min(13px, 1.015625cqw, 1.805556cqh);
+  }
+  .arena-app .arena-panel .registration-form label small {
+  font-size: min(11px, 0.859375cqw, 1.527778cqh);
+  }
+  .arena-app .arena-panel .registration-form input {
+  font-size: min(16px, 1.25cqw, 2.222222cqh);
+  }
+  .arena-app .arena-panel .registered-heading h3 {
+  font-size: min(17px, 1.328125cqw, 2.361111cqh);
+  }
+  .arena-app .arena-panel .registered-name b {
+  font-size: min(16px, 1.25cqw, 2.222222cqh);
+  }
+  .arena-app .arena-panel .registered-name small {
+  font-size: min(12px, 0.9375cqw, 1.666667cqh);
+  }
+  .arena-app .arena-panel .practice-card h3 {
+  font-size: min(24px, 1.875cqw, 3.333333cqh);
+  }
+  .arena-app .arena-panel .practice-card p {
+  font-size: min(14px, 1.09375cqw, 1.944444cqh);
+  }
+  .arena-app .arena-panel .arena-primary, .arena-app .arena-panel .arena-start {
+  font-size: min(14px, 1.09375cqw, 1.944444cqh);
+  }
+  .arena-app .arena-final {
+  border: min(2px, 0.15625cqw, 0.277778cqh) solid #ffdf5b;
+  border-radius: min(14px, 1.09375cqw, 1.944444cqh);
+  box-shadow: inset 0 0 min(60px, 4.6875cqw, 8.333333cqh) #137ce82e;
+  }
+  .arena-app .final-team h2 {
+  text-shadow: 0 min(4px, 0.3125cqw, 0.555556cqh) #062335;
+  }
+  .arena-app .final-cup svg {
+  filter: drop-shadow(0 0 min(20px, 1.5625cqw, 2.777778cqh) #ffd64477);
+  }
+  .arena-app .board-result-fx {
+  min-height: min(30px, 2.34375cqw, 4.166667cqh);
+  }
+  .arena-app .phase-view-heading h2 {
+  text-shadow: 0 min(2px, 0.15625cqw, 0.277778cqh) #001529;
+  }
+  .arena-app .phase-view-heading > strong {
+  border: min(1px, 0.078125cqw, 0.138889cqh) solid #f9dc3d8c;
+  border-radius: min(5px, 0.390625cqw, 0.694444cqh);
+  }
+  .arena-app .phase-tabs button {
+  border: min(1px, 0.078125cqw, 0.138889cqh) solid #427da7;
+  border-radius: min(5px, 0.390625cqw, 0.694444cqh);
+  }
+  .arena-app .phase-tabs button.current {
+  box-shadow:
+    inset 0 0 min(14px, 1.09375cqw, 1.944444cqh) #ffc4004a,
+    0 0 min(8px, 0.625cqw, 1.111111cqh) #ffe42e55;
+  }
+  .arena-app .phase-tabs button.selected {
+  box-shadow: 0 0 min(8px, 0.625cqw, 1.111111cqh) #f9d71d8c;
+  }
+  .arena-app .phase-card {
+  border: min(1px, 0.078125cqw, 0.138889cqh) solid var(--accent);
+  border-radius: min(8px, 0.625cqw, 1.111111cqh);
+  box-shadow: inset 0 0 min(22px, 1.71875cqw, 3.055556cqh) rgba(var(--accent-rgb), 0.13);
+  }
+  .arena-app .phase-card-heading {
+  border-bottom: min(1px, 0.078125cqw, 0.138889cqh) solid var(--accent);
+  }
+  .arena-app .phase-card-body .ranking-row.full {
+  min-height: min(18px, 1.40625cqw, 2.5cqh);
+  border-bottom: min(1px, 0.078125cqw, 0.138889cqh) solid #6d9ac959;
+  }
+  .arena-app .phase-card-next {
+  border-top: min(1px, 0.078125cqw, 0.138889cqh) solid #43cbe5;
+  }
+  .arena-app .qualified-card-list > div {
+  border: min(1px, 0.078125cqw, 0.138889cqh) solid #62e9748c;
+  border-radius: min(4px, 0.3125cqw, 0.555556cqh);
+  }
+  .arena-app .phase-match {
+  border: min(1px, 0.078125cqw, 0.138889cqh) solid #468eaf;
+  border-radius: min(5px, 0.390625cqw, 0.694444cqh);
+  }
+  .arena-app .phase-match.is-playing {
+  box-shadow: inset 0 0 min(8px, 0.625cqw, 1.111111cqh) #ffe33130;
+  }
+  .arena-app .phase-match-team {
+  border-top: min(1px, 0.078125cqw, 0.138889cqh) solid #ffffff1c;
+  }
+  .arena-app .phase-match-team strong {
+  border-radius: min(3px, 0.234375cqw, 0.416667cqh);
+  }
+  .arena-app .arena-board.final-idle {
+  box-shadow: inset 0 0 min(16px, 1.25cqw, 2.222222cqh) #66adbc22;
+  }
+  .arena-app .arena-board.board-inactive {
+  box-shadow: 0 min(4px, 0.3125cqw, 0.555556cqh) min(16px, 1.25cqw, 2.222222cqh) #000b, inset 0 0 min(24px, 1.875cqw, 3.333333cqh) #9da8b021;
+  }
+  .arena-app .game-entry input[type="number"] {
+    min-width: min(20px, 1.5625cqw, 2.777778cqh);
+  }
+  .arena-app .board-match-zone {
+    min-height: min(93px, 7.265625cqw, 12.916667cqh);
+  }
+  .arena-app .arena-guide {
+    min-height: min(44px, 3.4375cqw, 6.111111cqh);
+  }
+  .arena-app .board-score-strip {
+    min-height: min(44px, 3.4375cqw, 6.111111cqh);
   }
 }
